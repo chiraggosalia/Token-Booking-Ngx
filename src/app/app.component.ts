@@ -6,13 +6,18 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import { SeoService } from './@core/utils/seo.service';
+import { MENU_ITEMS } from './pages-menu';
 
 @Component({
   selector: 'ngx-app',
-  template: '<router-outlet></router-outlet>',
+  styleUrls: ['app.component.scss'],
+  template: `<ngx-one-column-layout>
+    <nb-menu [items]="menu"></nb-menu>
+    <router-outlet></router-outlet>
+  </ngx-one-column-layout>`,
 })
 export class AppComponent implements OnInit {
-
+  menu = MENU_ITEMS;
   constructor(private analytics: AnalyticsService, private seoService: SeoService) {
   }
 

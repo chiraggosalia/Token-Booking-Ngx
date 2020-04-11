@@ -1,5 +1,4 @@
-@import '../@theme/styles/themes';
-
+@import './@theme/styles/themes';
 @include nb-install-component() {
   ::ng-deep router-outlet + * {
     display: block;

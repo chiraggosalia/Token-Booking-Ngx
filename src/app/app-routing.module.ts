@@ -1,9 +1,11 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import {DemoComponent} from './client/demo/demo.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' },
+  { path: 'home', component: DemoComponent},
 ];
 
 const config: ExtraOptions = {

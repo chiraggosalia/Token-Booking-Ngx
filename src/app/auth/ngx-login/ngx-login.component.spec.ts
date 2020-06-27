@@ -8,7 +8,7 @@ describe('NgxLoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgxLoginComponent ]
+      declarations: [ NgxLoginComponent ],
     })
     .compileComponents();
   }));

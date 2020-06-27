@@ -9,7 +9,7 @@ import {
   NbAlertModule,
   NbButtonModule,
   NbCheckboxModule,
-  NbInputModule
+  NbInputModule,
 } from '@nebular/theme';
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
 
@@ -28,7 +28,7 @@ import { NgxLoginComponent } from './ngx-login/ngx-login.component';
   ],
   declarations: [
   NgxLoginComponent],
-  providers: []
+  providers: [],
 })
 export class NgxAuthModule {
 }

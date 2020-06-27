@@ -11,11 +11,12 @@ export class AuthuserService {
   headers = new HttpHeaders();
 
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) {
+  }
 
   authenticate(body) {
-    this.headers.append('Content-Type','application/json; charset=utf-8');
-    this.headers.append('X-Requested-With','XMLHttpRequest');
-      return this._http.post(this.serverURL + '/authenticate', body,{headers:this.headers});
+    this.headers.append('Content-Type', 'application/json; charset=utf-8');
+    this.headers.append('X-Requested-With', 'XMLHttpRequest');
+    return this._http.post(this.serverURL + '/authenticate', body, {headers: this.headers});
   }
 }

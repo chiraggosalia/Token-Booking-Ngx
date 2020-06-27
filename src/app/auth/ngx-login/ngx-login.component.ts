@@ -11,7 +11,7 @@ export class NgxLoginComponent implements OnInit {
   user: any = {};
   submitted: boolean = false;
 
-  constructor(private authuserService:AuthuserService) {
+  constructor(private authuserService: AuthuserService) {
   }
 
   ngOnInit(): void {
@@ -20,7 +20,6 @@ export class NgxLoginComponent implements OnInit {
 
   login() {
     this.authuserService.authenticate(this.user).subscribe(result => {
-      console.log(result);
     });
   }
 

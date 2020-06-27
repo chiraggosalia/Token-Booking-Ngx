@@ -3,9 +3,19 @@
     <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
-    <a class="logo" href="#" (click)="navigateHome()">Q-<span>assist</span></a>
+    <a class="logo" href="#" (click)="navigateHome()">Q-<span>Assist</span></a>
   </div>
   <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
     <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
   </nb-select>
+</div>
+
+<div class="header-container">
+  <nb-actions size="small">
+    <nb-action class="user-action" >
+      <nb-user [nbContextMenu]="userMenu"
+               [name]="user?.name">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
 </div>

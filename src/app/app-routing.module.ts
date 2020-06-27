@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import {DemoComponent} from './client/demo/demo.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' },
+  /*{path: '**', redirectTo: 'home'},*/
   { path: 'home', component: DemoComponent},
+  {
+    path: 'auth',
+    loadChildren: './auth/auth.module#NgxAuthModule',
+  },
 ];
 
 const config: ExtraOptions = {

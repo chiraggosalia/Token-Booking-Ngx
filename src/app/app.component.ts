@@ -8,6 +8,7 @@ import { MENU_ITEMS } from './main-menu';
     <nb-menu [items]="menu"></nb-menu>
     <router-outlet></router-outlet>
   </ngx-one-column-layout>`,
+  /*template: '<router-outlet></router-outlet>'*/
 })
 export class AppComponent implements OnInit {
   menu = MENU_ITEMS;

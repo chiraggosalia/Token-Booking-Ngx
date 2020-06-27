@@ -28,4 +28,6 @@
   @include ngx-pace-theme();
 
   @include nb-overrides();
+
+  /*@include nb-auth-global();*/
 };

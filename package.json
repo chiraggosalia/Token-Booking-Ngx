@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4201",
     "build": "ng build",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
@@ -44,6 +44,7 @@
     "ng2-smart-table": "1.6.0",
     "node-sass": "4.12.0",
     "normalize.css": "6.0.0",
+    "moment": "2.18.1",
     "pace-js": "1.0.2",
     "roboto-fontface": "0.8.0",
     "rxjs": "6.5.4",

@@ -1,10 +1,10 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import {DemoComponent} from './client/demo/demo.component';
+import {ClientDetailsComponent} from './client/client-details/client-details.component';
 
 export const routes: Routes = [
   /*{path: '**', redirectTo: 'home'},*/
-  { path: 'home', component: DemoComponent},
+  { path: 'home', component: ClientDetailsComponent},
   {
     path: 'auth',
     loadChildren: './auth/auth.module#NgxAuthModule',

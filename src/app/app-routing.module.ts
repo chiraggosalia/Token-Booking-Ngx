@@ -2,9 +2,9 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: 'base', pathMatch: 'full'},
   {
-    path: 'home', loadChildren: () => import('./baselayout/base-layout.module')
+    path: 'base', loadChildren: () => import('./baselayout/base-layout.module')
       .then(m => m.BaseLayoutModule),
   },
   {

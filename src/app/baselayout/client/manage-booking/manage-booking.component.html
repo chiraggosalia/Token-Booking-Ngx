@@ -1,0 +1,11 @@
+<nb-tabset fullWidth *ngIf="dataAvailable">
+  <nb-tab tabTitle="Booked">
+    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:'BOOKED'"></ngx-token-info>
+  </nb-tab>
+  <nb-tab tabTitle="Cancelled">
+    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:'CANCELLED'"></ngx-token-info>
+  </nb-tab>
+  <nb-tab tabTitle="Completed">
+    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:'COMPLETED'"></ngx-token-info>
+  </nb-tab>
+</nb-tabset>

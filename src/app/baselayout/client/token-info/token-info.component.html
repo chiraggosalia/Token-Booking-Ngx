@@ -1,0 +1,38 @@
+
+<nb-flip-card [showToggleButton]="false" [flipped]="flipped">
+  <nb-card-front>
+    <nb-card size="tiny" status="success">
+      <nb-card-header>{{bookingSummary.clientName}}</nb-card-header>
+      <nb-card-body>
+        <p>{{bookingSummary.tokenNumber}}</p>
+        <p>{{bookingSummary.date}}</p>
+      </nb-card-body>
+      <nb-card-footer *ngIf="bookingSummary.status=='BOOKED'">
+        <button nbButton status="primary" size="small" (click)="submitToken()">
+          Submit
+        </button>
+        <button class="button-border" nbButton status="danger" size="small" (click)="cancelToken()">
+          Cancel
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card size="tiny" status="info">
+      <nb-card-header>Confirmation</nb-card-header>
+      <nb-card-body>
+        <p *ngIf="actionSelected == 'SUBMIT'">Do you want to submit a token ?</p>
+        <p *ngIf="actionSelected == 'CANCEL'">Do you want to cancel a token ?</p>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton status="primary" size="medium" (click)="OK()"
+                [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="medium">
+          OK
+        </button>
+        <button class="button-border" nbButton status="primary" size="medium" (click)="toggleView()">
+          Cancel
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

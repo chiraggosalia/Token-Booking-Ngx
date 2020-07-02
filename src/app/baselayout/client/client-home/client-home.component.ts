@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AppConstant} from "../../app-constant";
-import {BookTokenService} from "./services/book-token.service";
-import {MdmService} from "./services/mdm.service";
-import {ClientNameAndId} from "./models/ClientNameAndId";
+import {ClientNameAndId} from "../models/ClientNameAndId";
+import {BookTokenService} from "../services/book-token.service";
 
 @Component({
   selector: 'ngx-client-home',
@@ -11,13 +9,13 @@ import {ClientNameAndId} from "./models/ClientNameAndId";
 })
 export class ClientHomeComponent implements OnInit {
 
-  clientInfo: ClientNameAndId[] = [];
+  clientInfos: ClientNameAndId[] = [];
   constructor(private bookTokenService: BookTokenService) { }
 
   ngOnInit(): void {
-    this.clientInfo = [];
+    this.clientInfos = [];
     this.bookTokenService.getAllActiveClientNames().subscribe(sessionResponse => {
-      this.clientInfo.push(...sessionResponse);
+      this.clientInfos.push(...sessionResponse);
     });
   }
 

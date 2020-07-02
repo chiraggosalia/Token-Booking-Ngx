@@ -4,12 +4,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Book Token',
     icon: 'home-outline',
-    link: '/home/client',
+    link: '/base/client/home',
     home: true,
   },
   {
     title: 'Manage Bookings',
     icon: 'keypad-outline',
-    link: '/home/client',
+    link: '/base/client/managebooking',
   },
 ];

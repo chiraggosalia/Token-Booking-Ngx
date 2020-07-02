@@ -5,6 +5,7 @@ import {ClientAndSessionDetails} from "../models/ClientAndSessionDetails";
 import {Observable} from "rxjs";
 import {ClientIdNameAddress} from "../models/ClientIdNameAddress";
 import {ClientNameAndId} from "../models/ClientNameAndId";
+import {BookingDetails} from "../models/BookingDetails";
 
 @Injectable()
 export class BookTokenService {
@@ -31,8 +32,8 @@ export class BookTokenService {
     return this._http.get(url);
   }
 
-  confirmBooking(body) {
-    return this._http.post(this.baseURL + '/booktoken', body);
+  confirmBooking(body): Observable<BookingDetails> {
+    return this._http.post<BookingDetails>(this.baseURL + '/booktoken', body);
   }
 
 }

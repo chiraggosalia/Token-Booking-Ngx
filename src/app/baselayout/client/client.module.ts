@@ -6,7 +6,14 @@ import {BookTokenService} from './services/book-token.service';
 import {FormsModule} from "@angular/forms";
 import {DateFilterPipe} from './pipe/date-filter.pipe';
 import {ClientHomeComponent} from './client-home.component';
-import {NbAccordionModule, NbButtonModule, NbCardModule, NbDatepickerModule, NbInputModule} from "@nebular/theme";
+import {
+  NbAccordionModule,
+  NbButtonModule,
+  NbCardModule,
+  NbDatepickerModule,
+  NbInputModule,
+  NbSpinnerModule
+} from "@nebular/theme";
 import {ClientRoutingModule} from "./client-routing.module";
 import {MdmService} from "./services/mdm.service";
 
@@ -22,6 +29,7 @@ import {MdmService} from "./services/mdm.service";
     NbDatepickerModule,
     NbInputModule,
     ClientRoutingModule,
+    NbSpinnerModule,
   ],
   providers: [BookTokenService,MdmService],
 

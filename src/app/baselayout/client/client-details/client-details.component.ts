@@ -3,9 +3,7 @@ import {BookTokenService} from '../services/book-token.service';
 import {AppConstant} from '../../../app-constant';
 import {ClientAndSessionDetails} from "../models/ClientAndSessionDetails";
 import * as moment from 'moment';
-import {UserSessionSummary} from "../models/UserSessionSummary";
-import {NbDateService} from "@nebular/theme";
-import {MdmService} from "../services/mdm.service";
+import {NbDateService, NbDialogService} from "@nebular/theme";
 import {Sessionfilter} from "../models/sessionfilter";
 
 @Component({
@@ -19,14 +17,17 @@ export class ClientDetailsComponent implements OnInit {
   clientId:number;
 
   flipped:boolean = false;
-  primary:string = "primary";
+  success:string = "success";
   clientSessionDetails: ClientAndSessionDetails = new ClientAndSessionDetails();
   filterValue:Sessionfilter = new Sessionfilter();
   minDate:Date;
   maxDate:Date;
   dataAvailable:boolean = false;
 
-  constructor(private bookTokenService: BookTokenService,protected dateService: NbDateService<Date>) {
+  loading:boolean = false;
+  selectedSessionID:string;
+
+  constructor(private bookTokenService: BookTokenService, protected dateService: NbDateService<Date>, private dialogService: NbDialogService) {
     this.minDate = this.dateService.addDay(this.dateService.today(), 0);
     this.maxDate = this.dateService.addDay(this.dateService.today(), 6);
   }
@@ -48,7 +49,12 @@ export class ClientDetailsComponent implements OnInit {
     });
   }
 
-  onBookToken() {
+  confirmTokenBooking(sessionID:string) {
+    this.selectedSessionID = sessionID;
+     this.flipped = !this.flipped;
+  }
+
+  flipToggle() {
     this.flipped = !this.flipped;
   }
 
@@ -70,10 +76,27 @@ export class ClientDetailsComponent implements OnInit {
       sameDay: '[Today]',
       nextDay: '[Tomorrow]',
       nextWeek: 'dddd',
-      // when the date is further away, use from-now functionality
       sameElse: function () {
         return "[" + fromNow + "]";
       }
+    });
+  }
+
+  bookToken() {
+    this.loading = true;
+    const requestBody = {
+      sessionId : this.selectedSessionID,
+      userId: AppConstant.userId,
+    };
+
+    this.bookTokenService.confirmBooking(requestBody).subscribe( response => {
+      this.loading = false;
+      this.clientSessionDetails.sessions.forEach( session => {
+        if(session.sessionId == response.sessionId) {
+          session.tokenNumber = response.tokenNumber;
+        }
+      });
+      this.flipToggle();
     });
   }
 

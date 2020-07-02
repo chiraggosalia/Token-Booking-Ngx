@@ -9,5 +9,5 @@ export class UserSessionSummary {
   fromTime: Time;
   toTime: Time;
   booked: boolean;
-  tokenNumber: number;
+  tokenNumber: string;
 }

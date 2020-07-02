@@ -2,7 +2,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   /*{path: '**', redirectTo: 'auth'},*/
   {
     path: 'home', loadChildren: () => import('./baselayout/base-layout.module')

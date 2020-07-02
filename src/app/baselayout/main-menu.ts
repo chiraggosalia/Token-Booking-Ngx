@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Book Token',
     icon: 'shopping-cart-outline',
-    link: '/client',
+    link: '/home/client',
     home: true,
   },
 ];

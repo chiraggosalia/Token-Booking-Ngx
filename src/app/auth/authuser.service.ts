@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import {AppConstant} from '../app-constant';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AppConstant} from "../app-constant";
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthuserService {
 
   serverURL= AppConstant.serverURL;
   headers = new HttpHeaders();
-
 
   constructor(private _http: HttpClient) {
   }

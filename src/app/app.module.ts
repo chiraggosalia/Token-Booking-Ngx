@@ -2,27 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import {
-  NbAccordionModule, NbButtonModule,
-  NbCardModule,
   NbDatepickerModule,
-  NbDialogModule, NbInputModule,
+  NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
-  NbWindowModule,
-} from '@nebular/theme';
-import { DemoComponent } from './client/demo/demo.component';
-import { ClientDetailsComponent } from './client/client-details/client-details.component';
-import {BookTokenService} from "./services/book-token.service";
-import {FormsModule} from "@angular/forms";
-import { DateFilterPipe } from './pipe/date-filter.pipe';
+  NbWindowModule
+} from "@nebular/theme";
+import {ThemeModule} from "./@theme/theme.module";
+import {AppRoutingModule} from "./app-routing.module";
+import {NbAuthModule} from "@nebular/auth";
 
 @NgModule({
-  declarations: [AppComponent, DemoComponent, ClientDetailsComponent, DateFilterPipe],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,14 +29,10 @@ import { DateFilterPipe } from './pipe/date-filter.pipe';
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     ThemeModule.forRoot(),
-    NbCardModule,
-    NbInputModule,
-    NbAccordionModule,
-    NbButtonModule,
-    FormsModule,
+    NbAuthModule.forRoot(),
   ],
   bootstrap: [AppComponent],
-  providers: [BookTokenService],
+  providers: [],
 })
 export class AppModule {
 }

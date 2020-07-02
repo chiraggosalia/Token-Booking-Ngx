@@ -15,7 +15,6 @@ export class NgxLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   login() {

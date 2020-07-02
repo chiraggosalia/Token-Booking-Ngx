@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { NgxAuthRoutingModule } from './auth-routing.module';
-import {NbAuthModule} from '@nebular/auth';
 import {
   NbAlertModule,
   NbButtonModule,
@@ -12,6 +11,7 @@ import {
   NbInputModule,
 } from '@nebular/theme';
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
+import {AuthuserService} from "./authuser.service";
 
 @NgModule({
   imports: [
@@ -23,12 +23,10 @@ import { NgxLoginComponent } from './ngx-login/ngx-login.component';
     NbButtonModule,
     NbCheckboxModule,
     NgxAuthRoutingModule,
-
-    NbAuthModule.forRoot(),
   ],
   declarations: [
   NgxLoginComponent],
-  providers: [],
+  providers: [AuthuserService],
 })
 export class NgxAuthModule {
 }

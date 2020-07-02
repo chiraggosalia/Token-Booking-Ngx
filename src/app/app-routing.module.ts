@@ -1,13 +1,16 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import {ClientDetailsComponent} from './client/client-details/client-details.component';
 
 export const routes: Routes = [
-  /*{path: '**', redirectTo: 'home'},*/
-  { path: 'home', component: ClientDetailsComponent},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  /*{path: '**', redirectTo: 'auth'},*/
   {
-    path: 'auth',
-    loadChildren: './auth/auth.module#NgxAuthModule',
+    path: 'home', loadChildren: () => import('./baselayout/base-layout.module')
+      .then(m => m.BaseLayoutModule),
+  },
+  {
+    path: 'auth', loadChildren: () => import('./auth/auth.module')
+      .then(m => m.NgxAuthModule),
   },
 ];
 
@@ -16,7 +19,8 @@ const config: ExtraOptions = {
 };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, config)],
+  imports: [
+    RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {

@@ -11,6 +11,10 @@ export const routes: Routes = [
     component: NbAuthComponent,
     children: [
       {
+        path: '',
+        component: NgxLoginComponent, // <---
+      },
+      {
         path: 'login',
         component: NgxLoginComponent, // <---
       },

@@ -1,0 +1,42 @@
+<nb-flip-card [flipped]="flipped" *ngIf="dataAvailable">
+  <nb-card-front>
+    <nb-card status="success">
+      <nb-card-header>{{clientSessionDetails?.clientIdNameAddress?.clientName}}</nb-card-header>
+      <nb-card-body>
+        <nb-accordion>
+          <nb-accordion-item *ngFor="let session of clientSessionDetails?.sessions | dateFilter:filterValue">
+            <nb-accordion-item-header>
+              {{session.fromTime + " " + session.toTime }}
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+              Originally, nebula was a name for any diffuse astronomical object,
+              including galaxies beyond the Milky Way.
+              <button nbButton [status]="primary" (click)="onBookToken()">Book</button>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </nb-card-body>
+      <nb-card-footer>
+        <input nbInput
+               placeholder="Form Picker"
+               [nbDatepicker]="formpicker" [(ngModel)]="clientSessionDetails.selectedDate"
+               (ngModelChange)="setFilerDate()">
+        <nb-datepicker #formpicker [min]="minDate" [max]="maxDate"></nb-datepicker>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card accent="primary" status="info">
+      <nb-card-header>Back Card Header</nb-card-header>
+      <nb-card-body>
+        A nebula is an interstellar cloud of dust, hydrogen,
+        helium and other ionized gases.
+        Originally, nebula was a name for
+        any diffuse astronomical object,
+        including galaxies beyond the Milky Way.
+      </nb-card-body>
+      <nb-card-footer></nb-card-footer>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

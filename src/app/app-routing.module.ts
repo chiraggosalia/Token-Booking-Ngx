@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  /*{path: '**', redirectTo: 'auth'},*/
   {
     path: 'home', loadChildren: () => import('./baselayout/base-layout.module')
       .then(m => m.BaseLayoutModule),

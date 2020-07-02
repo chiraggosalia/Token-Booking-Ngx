@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import {UserSessionSummary} from "../models/UserSessionSummary";
 import {NbDateService} from "@nebular/theme";
 import {MdmService} from "../services/mdm.service";
+import {Sessionfilter} from "../models/sessionfilter";
 
 @Component({
   selector: 'ngx-client-details',
@@ -20,7 +21,7 @@ export class ClientDetailsComponent implements OnInit {
   flipped:boolean = false;
   primary:string = "primary";
   clientSessionDetails: ClientAndSessionDetails = new ClientAndSessionDetails();
-  filterValue:UserSessionSummary = new UserSessionSummary();
+  filterValue:Sessionfilter = new Sessionfilter();
   minDate:Date;
   maxDate:Date;
   dataAvailable:boolean = false;
@@ -34,9 +35,9 @@ export class ClientDetailsComponent implements OnInit {
     this.bookTokenService.getAllSessionsByClientId(this.clientId, AppConstant.userId).subscribe(sessionResponse => {
       this.clientSessionDetails = sessionResponse;
       console.log(this.clientSessionDetails);
-      this.clientSessionDetails.filerDate = moment(this.dateService.today()).format('DD-MM-YYYY');
-      this.filterValue.date = this.clientSessionDetails.filerDate;
-      this.clientSessionDetails.selectedDate = this.dateService.today();
+      this.filterValue.filterDate = moment(this.dateService.today()).format('DD-MM-YYYY');
+      this.filterValue.selectedDate = this.dateService.today();
+      this.filterValue.selectedDay = this.dateToFromNowDaily(this.filterValue.selectedDate);
       this.dataAvailable = true;
       //moment(this.allClientSessionDetails., 'DD-MM-YYYY').format('dddd');
       /*// this.clientSessionDetails.sessions.sort((s1, s2) => this.compareSessionDate(s1, s2));
@@ -52,9 +53,28 @@ export class ClientDetailsComponent implements OnInit {
   }
 
   setFilerDate() {
-    this.clientSessionDetails.filerDate = moment(this.clientSessionDetails.selectedDate).format('DD-MM-YYYY');
-    this.filterValue = new UserSessionSummary();
-    this.filterValue.date = this.clientSessionDetails.filerDate;
-    console.log("filter values" + this.filterValue.date);
+    let newFilterValue = new Sessionfilter();
+
+    newFilterValue.filterDate = moment(this.filterValue.selectedDate).format('DD-MM-YYYY');
+    newFilterValue.selectedDay = this.dateToFromNowDaily(this.filterValue.selectedDate);
+    newFilterValue.selectedDate = this.filterValue.selectedDate;
+    this.filterValue = newFilterValue;
   }
+
+  dateToFromNowDaily(myDate) {
+    var fromNow = moment(myDate).fromNow();
+
+    return moment(myDate).calendar(null, {
+      lastWeek: '[Last] dddd',
+      lastDay: '[Yesterday]',
+      sameDay: '[Today]',
+      nextDay: '[Tomorrow]',
+      nextWeek: 'dddd',
+      // when the date is further away, use from-now functionality
+      sameElse: function () {
+        return "[" + fromNow + "]";
+      }
+    });
+  }
+
 }

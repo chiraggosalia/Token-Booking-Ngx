@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  NbAuthComponent,
+  NbAuthComponent, NbRegisterComponent,
 } from '@nebular/auth';
 import {NgxLoginComponent} from './ngx-login/ngx-login.component';
+import {UserRegisterComponent} from "./user-register/user-register.component";
 
 export const routes: Routes = [
   {
@@ -12,11 +13,15 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: NgxLoginComponent, // <---
+        redirectTo: 'login',
       },
       {
         path: 'login',
-        component: NgxLoginComponent, // <---
+        component: NgxLoginComponent,
+      },
+      {
+        path: 'register',
+        component: UserRegisterComponent,
       },
     ],
   },

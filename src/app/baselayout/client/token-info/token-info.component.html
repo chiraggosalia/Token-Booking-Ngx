@@ -4,8 +4,19 @@
     <nb-card size="tiny" status="success">
       <nb-card-header>{{bookingSummary.clientName}}</nb-card-header>
       <nb-card-body>
-        <p>{{bookingSummary.tokenNumber}}</p>
-        <p>{{bookingSummary.date}}</p>
+        <div *ngIf="bookingSummary.status=='BOOKED'">
+          <p style="color: green"><b>Your booked token no. is {{bookingSummary.tokenNumber}}</b></p>
+          <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on </b>
+            <b>{{bookingSummary.date}}</b></p>
+        </div>
+        <div *ngIf="bookingSummary.status=='CANCELLED'">
+          <p style="color: red"><b>Your cancelled token number is {{bookingSummary.tokenNumber}}</b></p>
+          <b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on {{bookingSummary.date}}</b>
+        </div>
+        <div *ngIf="bookingSummary.status=='COMPLETED'">
+          <p style="color: darkgreen"><b>Your completed token number is {{bookingSummary.tokenNumber}}</b></p>
+          <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on {{bookingSummary.date}}</b></p>
+        </div>
       </nb-card-body>
       <nb-card-footer *ngIf="bookingSummary.status=='BOOKED'">
         <button nbButton status="primary" size="small" (click)="submitToken()">

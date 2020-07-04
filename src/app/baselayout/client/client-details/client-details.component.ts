@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BookTokenService} from '../services/book-token.service';
-import {AppConstant} from '../../../app-constant';
 import {ClientAndSessionDetails} from "../models/ClientAndSessionDetails";
 import * as moment from 'moment';
 import {NbDateService, NbDialogService} from "@nebular/theme";
@@ -33,19 +32,13 @@ export class ClientDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bookTokenService.getAllSessionsByClientId(this.clientId, AppConstant.userId).subscribe(sessionResponse => {
+    this.bookTokenService.getAllSessionsByClientId(this.clientId).subscribe(sessionResponse => {
       this.clientSessionDetails = sessionResponse;
       console.log(this.clientSessionDetails);
       this.filterValue.filterDate = moment(this.dateService.today()).format('DD-MM-YYYY');
       this.filterValue.selectedDate = this.dateService.today();
       this.filterValue.selectedDay = this.dateToFromNowDaily(this.filterValue.selectedDate);
       this.dataAvailable = true;
-      //moment(this.allClientSessionDetails., 'DD-MM-YYYY').format('dddd');
-      /*// this.clientSessionDetails.sessions.sort((s1, s2) => this.compareSessionDate(s1, s2));
-      if (this.allClientSessionDetails.sessions.length > 0) {
-        this.currentSession = this._util.createSession(this.clientSessionDetails.sessions[0], this.clientSessionDetails);
-        this.maxSession = this.clientSessionDetails.sessions.length-1;
-      }*/
     });
   }
 
@@ -86,7 +79,6 @@ export class ClientDetailsComponent implements OnInit {
     this.loading = true;
     const requestBody = {
       sessionId : this.selectedSessionID,
-      userId: AppConstant.userId,
     };
 
     this.bookTokenService.confirmBooking(requestBody).subscribe( response => {
@@ -94,6 +86,7 @@ export class ClientDetailsComponent implements OnInit {
       this.clientSessionDetails.sessions.forEach( session => {
         if(session.sessionId == response.sessionId) {
           session.tokenNumber = response.tokenNumber;
+          session.availableToken = session.availableToken - 1;
         }
       });
       this.flipToggle();

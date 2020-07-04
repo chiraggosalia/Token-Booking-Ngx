@@ -17,14 +17,9 @@ export class BookTokenService {
     return this._http.get<ClientNameAndId[]>(this.baseURL + '/clientname');
   }
 
-  getAllSessionsByClientId(clientId,userId): Observable<ClientAndSessionDetails> {
-    const url = this.baseURL + '/clients/' + clientId + '/sessions' + '?userId=' + userId;
+  getAllSessionsByClientId(clientId): Observable<ClientAndSessionDetails> {
+    const url = this.baseURL + '/clients/' + clientId + '/sessions';
     return this._http.get<ClientAndSessionDetails>(url);
-  }
-
-  public getAllSessionsOfAllClients(userId): Observable<ClientAndSessionDetails[]> {
-    const url = this.baseURL + '/clients/sessions' + '?userId=' + userId;
-    return this._http.get<ClientAndSessionDetails[]>(url);
   }
 
   getNextAvailableTokenBySessionId(sessionId) {

@@ -11,6 +11,7 @@ import {
   NbInputModule,
 } from '@nebular/theme';
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
+import { UserRegisterComponent } from './user-register/user-register.component';
 import {AuthuserService} from "./authuser.service";
 
 @NgModule({
@@ -25,7 +26,8 @@ import {AuthuserService} from "./authuser.service";
     NgxAuthRoutingModule,
   ],
   declarations: [
-  NgxLoginComponent],
+  NgxLoginComponent,
+  UserRegisterComponent],
   providers: [AuthuserService],
 })
 export class NgxAuthModule {

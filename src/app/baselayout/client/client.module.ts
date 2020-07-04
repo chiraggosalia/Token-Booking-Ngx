@@ -6,12 +6,12 @@ import {BookTokenService} from './services/book-token.service';
 import {FormsModule} from "@angular/forms";
 import {DateFilterPipe} from './pipe/date-filter.pipe';
 import {
-  NbAccordionModule,
-  NbButtonModule,
-  NbCardModule,
-  NbDatepickerModule,
-  NbInputModule,
-  NbSpinnerModule, NbTabsetModule
+    NbAccordionModule,
+    NbButtonModule,
+    NbCardModule,
+    NbDatepickerModule,
+    NbInputModule,
+    NbSpinnerModule, NbTabsetModule, NbTooltipModule
 } from "@nebular/theme";
 import {ClientRoutingModule} from "./client-routing.module";
 import {MdmService} from "./services/mdm.service";
@@ -24,18 +24,19 @@ import {TokenFilterPipe} from "./pipe/token-filter.pipe";
 
 @NgModule({
   declarations: [ClientDetailsComponent, DateFilterPipe, TokenFilterPipe, ClientHomeComponent, ManageBookingComponent, ClientComponent, TokenInfoComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NbAccordionModule,
-    NbButtonModule,
-    NbCardModule,
-    NbDatepickerModule,
-    NbInputModule,
-    ClientRoutingModule,
-    NbSpinnerModule,
-    NbTabsetModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NbAccordionModule,
+        NbButtonModule,
+        NbCardModule,
+        NbDatepickerModule,
+        NbInputModule,
+        ClientRoutingModule,
+        NbSpinnerModule,
+        NbTabsetModule,
+        NbTooltipModule,
+    ],
   providers: [BookTokenService,MdmService,ManageBookingService],
 
 })

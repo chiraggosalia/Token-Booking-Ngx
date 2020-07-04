@@ -12,7 +12,7 @@
             <nb-accordion-item-body>
               <p>Available tokens {{session.availableToken}}</p>
               <p>Total tokens {{session.noOfTokens}}</p>
-              <p *ngIf="session.tokenNumber>0" style="color: green" >Your Booked token number is {{session.tokenNumber}}</p>
+              <p *ngIf="session.tokenNumber>0" style="color: green" ><b>Your Booked token number is {{session.tokenNumber}}</b></p>
               <button nbButton [status]="success" (click)="confirmTokenBooking(session.sessionId)"
                       [disabled]="session.tokenNumber>0">Book
               </button>

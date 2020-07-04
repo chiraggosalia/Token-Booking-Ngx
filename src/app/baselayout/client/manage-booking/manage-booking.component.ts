@@ -21,7 +21,7 @@ export class ManageBookingComponent implements OnInit {
   getBookingsByUserId() {
     this.dataAvailable = false;
     this.bookingSummaryList = [];
-    this.manageBookingService.getBookingsByUserId(AppConstant.userId).subscribe( response => {
+    this.manageBookingService.getBookingsByUserId().subscribe( response => {
       console.log(response);
       this.dataAvailable = true;
       this.bookingSummaryList.push(...response);

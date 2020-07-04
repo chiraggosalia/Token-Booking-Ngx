@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AppConstant} from "../../../app-constant";
 import {Observable} from "rxjs";
-import {ClientNameAndId} from "../models/ClientNameAndId";
 import {BookingSummary} from "../models/BookingSummary";
 
 @Injectable()
@@ -12,8 +11,8 @@ export class ManageBookingService {
 
   constructor(private _http : HttpClient) { }
 
-  getBookingsByUserId(userId) : Observable<BookingSummary[]> {
-      const url = this.baseURL + '/users/'+ userId +'/bookings';
+  getBookingsByUserId() : Observable<BookingSummary[]> {
+      const url = this.baseURL + '/users/bookings';
       return this._http.get<BookingSummary[]>(url);
   }
 

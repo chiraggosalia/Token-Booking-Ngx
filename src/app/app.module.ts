@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {
   NbDatepickerModule,
@@ -14,6 +14,7 @@ import {
 import {ThemeModule} from "./@theme/theme.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {NbAuthModule} from "@nebular/auth";
+import {AuthInterceptor} from "./auth-interceptor";
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,11 @@ import {NbAuthModule} from "@nebular/auth";
     NbAuthModule.forRoot(),
   ],
   bootstrap: [AppComponent],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
 })
 export class AppModule {
 }

@@ -4,7 +4,9 @@ import {AppConstant} from "../app-constant";
 import {Observable} from "rxjs";
 import {ResponseStatus} from "../baselayout/client/models/ResponseStatus";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthuserService {
 
   serverURL= AppConstant.serverURL;
@@ -24,6 +26,12 @@ export class AuthuserService {
     this.headers.append('Content-Type', 'application/json; charset=utf-8');
     this.headers.append('X-Requested-With', 'XMLHttpRequest');
     return this._http.post<ResponseStatus>(this.baseURL + '/register', body,{headers: this.headers});
+  }
+
+  logout() : Observable<ResponseStatus> {
+    this.headers.append('Content-Type', 'application/json; charset=utf-8');
+    this.headers.append('X-Requested-With', 'XMLHttpRequest');
+    return this._http.post<ResponseStatus>(this.baseURL + '/logout', '',{headers: this.headers});
   }
 
 }

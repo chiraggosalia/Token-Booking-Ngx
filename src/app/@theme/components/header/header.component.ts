@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {NB_WINDOW, NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
 
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import {AuthuserService} from "../../../auth/authuser.service";
+import {ResponseStatus} from "../../../baselayout/client/models/ResponseStatus";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ngx-header',
@@ -41,13 +44,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              @Inject(NB_WINDOW) private window,
+              private authuserService:AuthuserService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
 
-    this.user = {name: 'Kalpesh'};
+    let currentUser: any = localStorage.getItem("currentUser");
+    if (currentUser) {
+      let currentUserJson: any = JSON.parse(currentUser);
+      this.user = {'name': currentUserJson.userName};
+
+    }
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -63,6 +74,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+
+    this.menuService.onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === 'context-menu'),
+        map(({ item: { title } }) => title),
+      )
+      .subscribe(title => this.selectAction(title));
   }
 
   ngOnDestroy() {
@@ -83,4 +101,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
+
+  selectAction(title) {
+    this.authuserService.logout().subscribe(response => {
+      console.log(response);
+      if (response.status == "SUCCESS") {
+            localStorage.removeItem("currentUser");
+            this.router.navigate(['/auth/login']);
+      }
+
+    });
+  }
+
 }

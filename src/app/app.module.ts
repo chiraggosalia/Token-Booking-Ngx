@@ -15,6 +15,7 @@ import {ThemeModule} from "./@theme/theme.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {NbAuthModule} from "@nebular/auth";
 import {AuthInterceptor} from "./auth-interceptor";
+import {AuthuserService} from "./auth/authuser.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,7 @@ import {AuthInterceptor} from "./auth-interceptor";
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  },AuthuserService],
 })
 export class AppModule {
 }

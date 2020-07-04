@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthuserService} from "../authuser.service";
 import {DOCUMENT} from "@angular/common";
+import {NgForm} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ngx-user-register',
@@ -14,13 +16,14 @@ export class UserRegisterComponent implements OnInit {
   messages: string[] = [];
   showMessages: any = [];
   errors: string[] = [];
+  expanded:boolean = true;
 
-  constructor(private authService:AuthuserService) { }
+  constructor(private authService:AuthuserService,private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  register() {
+  register(form:NgForm) {
     console.log(this.user);
     this.authService.register(this.user).subscribe( response => {
       console.log(response);
@@ -29,11 +32,17 @@ export class UserRegisterComponent implements OnInit {
         this.showMessages.error = false;
         this.messages = [];
         this.messages.push(response.message);
+        // this.user = {};
+        this.messages.push("Redirecting to login page...Please wait..");
+        setTimeout(() => this.router.navigate(['/auth/login']), 2000);
+        this.expanded = false;
+        form.reset();
       } else if(response.status == 'FAILURE') {
         this.showMessages.error=true;
         this.showMessages.success=false;
         this.errors = [];
         this.errors.push(response.message);
+        this.expanded = false;
       }
     });
   }

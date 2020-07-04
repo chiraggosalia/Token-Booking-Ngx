@@ -12,9 +12,4 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'keypad-outline',
     link: '/base/client/managebooking',
   },
-  {
-    title: 'login',
-    icon: 'keypad-outline',
-    link: '/auth/login',
-  },
 ];

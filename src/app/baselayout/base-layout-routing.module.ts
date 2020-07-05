@@ -8,6 +8,8 @@ export const routes: Routes = [
     children: [
      {path:'client',loadChildren: () => import('./client/client.module')
          .then(m => m.ClientModule)},
+      {path:'admin',loadChildren: () => import('./client-admin/client-admin.module')
+          .then(m => m.ClientAdminModule)},
       {
         path: '',
         redirectTo: 'client',

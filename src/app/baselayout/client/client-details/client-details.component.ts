@@ -44,7 +44,7 @@ export class ClientDetailsComponent implements OnInit {
 
   confirmTokenBooking(sessionID:string) {
     this.selectedSessionID = sessionID;
-     this.flipped = !this.flipped;
+    this.flipToggle();
   }
 
   flipToggle() {

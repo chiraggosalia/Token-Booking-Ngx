@@ -1,14 +1,13 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {UserSessionSummary} from "../models/UserSessionSummary";
 import {Sessionfilter} from "../models/sessionfilter";
-import {isNull} from "util";
+import {AdminSessionSummary} from "../models/AdminSessionSummary";
 
 @Pipe({
-  name: 'dateFilter'
+  name: 'adminDateFilter'
 })
-export class DateFilterPipe implements PipeTransform {
+export class AdminDateFilterPipe implements PipeTransform {
 
-  transform(list: UserSessionSummary[], value: Sessionfilter): UserSessionSummary[] {
+  transform(list: AdminSessionSummary[], value: Sessionfilter): AdminSessionSummary[] {
     value.filterCount = 0;
     if (list !== null) {
       return list.filter(session => {

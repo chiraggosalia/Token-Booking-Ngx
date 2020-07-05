@@ -1,0 +1,54 @@
+<nb-flip-card [flipped]="flipped" [showToggleButton]="false" *ngIf="dataAvailable">
+  <nb-card-front>
+    <nb-card status="success" >
+      <nb-card-header>{{clientName}}</nb-card-header>
+      <nb-card-body>
+        <h3>{{filterValue.selectedDay}}'s sessions</h3>
+        <nb-accordion>
+          <nb-accordion-item *ngFor="let session of adminSessionSummaryList | adminDateFilter:filterValue">
+            <nb-accordion-item-header>
+              {{session.fromTime + " " + session.toTime }}
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <p>Available tokens {{session.availableTokens}}</p>
+              <p>Booked tokens {{session.bookedTokens}}</p>
+              <p>Submitted tokens {{session.submittedTokens}}</p>
+              <button nbButton [status]="success" (click)="openConfirmation(session.sessionId,'START')">Start
+              </button>
+              <button nbButton [status]="success" class="button-border" (click)="openConfirmation(session.sessionId,'CANCEL')">Cancel
+              </button>
+              <button nbButton [status]="success" class="button-border" (click)="openConfirmation(session.sessionId,'COMPLETE')">Complete
+              </button>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </nb-card-body>
+      <nb-card-footer>
+        <input nbInput
+               placeholder="Form Picker"
+               [nbDatepicker]="formpicker" [(ngModel)]="filterValue.selectedDate"
+               (ngModelChange)="setFilerDate()">
+        <nb-datepicker #formpicker [min]="minDate" [max]="maxDate"></nb-datepicker>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card status="info">
+      <nb-card-header>Confirmation</nb-card-header>
+      <nb-card-body>
+        <p *ngIf="selectedAction=='START'">Do you want to start the session?</p>
+        <p *ngIf="selectedAction=='CANCEL'">Do you want to cancel the session?</p>
+        <p *ngIf="selectedAction=='COMPLETE'">Do you want to complete the session?</p>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton status="primary" size="medium" (click)="OK()"
+                [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="medium">
+          Yes
+        </button>
+        <button class="button-border" nbButton status="primary" size="medium" (click)="flipToggle()">
+          No
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

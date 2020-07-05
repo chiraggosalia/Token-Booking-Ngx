@@ -4,7 +4,6 @@ import {NB_WINDOW, NbMediaBreakpointsService, NbMenuService, NbSidebarService, N
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import {AuthuserService} from "../../../auth/authuser.service";
-import {ResponseStatus} from "../../../baselayout/client/models/ResponseStatus";
 import {Router} from "@angular/router";
 
 @Component({
@@ -17,6 +16,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
+  profileTitle:string = 'Profile';
+  logoutTitle:string = 'Log out';
+  managebookingTitle:string = 'Manage Booking';
 
   themes = [
     {
@@ -39,7 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [ { title: this.managebookingTitle }, { title: this.logoutTitle } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -103,14 +105,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   selectAction(title) {
-    this.authuserService.logout().subscribe(response => {
-      console.log(response);
-      if (response.status == "SUCCESS") {
-            localStorage.removeItem("currentUser");
-            this.router.navigate(['/auth/login']);
-      }
+    if (title == this.logoutTitle) {
+      this.authuserService.logout().subscribe(response => {
+        if (response.status == "SUCCESS") {
+          localStorage.removeItem("currentUser");
+          this.router.navigate(['/auth/login']);
+        }
 
-    });
+      });
+    } else if (title == this.managebookingTitle) {
+      this.router.navigate(['/base/client/managebooking']);
+    }
   }
 
 }

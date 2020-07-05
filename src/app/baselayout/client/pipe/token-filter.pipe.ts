@@ -8,8 +8,14 @@ import {BookingSummary} from "../models/BookingSummary";
 })
 export class TokenFilterPipe implements PipeTransform {
 
-  transform(list: BookingSummary[], status: string): BookingSummary[] {
-    return list.filter(bookingSummary => bookingSummary.status == status);
+  transform(list: BookingSummary[], tokenFilter: any): BookingSummary[] {
+    tokenFilter.count = 0;
+    return list.filter(bookingSummary => {
+      if (bookingSummary.status == tokenFilter.status) {
+        tokenFilter.count++;
+      }
+      return bookingSummary.status == tokenFilter.status;
+    });
   }
 
 }

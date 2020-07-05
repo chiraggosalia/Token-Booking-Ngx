@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ManageBookingService} from "../services/manage-booking.service";
-import {AppConstant} from "../../../app-constant";
 import {BookingSummary} from "../models/BookingSummary";
 
 @Component({
@@ -12,19 +11,21 @@ export class ManageBookingComponent implements OnInit {
 
   bookingSummaryList: BookingSummary[] = [];
   dataAvailable: boolean = false;
+  bookedTokenFilter:any;
+  cancelledTokenFilter:any;
+  completedTokenFilter:any;
+
   constructor(private manageBookingService:ManageBookingService) { }
 
   ngOnInit(): void {
-    this.getBookingsByUserId();
-  }
-
-  getBookingsByUserId() {
     this.dataAvailable = false;
     this.bookingSummaryList = [];
     this.manageBookingService.getBookingsByUserId().subscribe( response => {
-      console.log(response);
-      this.dataAvailable = true;
       this.bookingSummaryList.push(...response);
+      this.bookedTokenFilter = {status:'BOOKED'};
+      this.cancelledTokenFilter = {status:'CANCELLED'};
+      this.completedTokenFilter = {status:'COMPLETED'};
+      this.dataAvailable = true;
     })
   }
 
@@ -40,3 +41,4 @@ export class ManageBookingComponent implements OnInit {
   }
 
 }
+

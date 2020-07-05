@@ -24,15 +24,12 @@ export class UserRegisterComponent implements OnInit {
   }
 
   register(form:NgForm) {
-    console.log(this.user);
     this.authService.register(this.user).subscribe( response => {
-      console.log(response);
-      if(response.status == 'SUCCESS'){
+      if(response.status == 'SUCCESS') {
         this.showMessages.success = true;
         this.showMessages.error = false;
         this.messages = [];
         this.messages.push(response.message);
-        // this.user = {};
         this.messages.push("Redirecting to login page...Please wait..");
         setTimeout(() => this.router.navigate(['/auth/login']), 2000);
         this.expanded = false;

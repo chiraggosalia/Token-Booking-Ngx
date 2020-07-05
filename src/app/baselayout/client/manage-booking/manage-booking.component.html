@@ -1,11 +1,14 @@
 <nb-tabset fullWidth *ngIf="dataAvailable">
   <nb-tab tabTitle="Booked">
-    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:'BOOKED'"></ngx-token-info>
+    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:bookedTokenFilter"></ngx-token-info>
+    <p *ngIf="bookedTokenFilter.count==0">No booked token available</p>
   </nb-tab>
   <nb-tab tabTitle="Cancelled">
-    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:'CANCELLED'"></ngx-token-info>
+    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:cancelledTokenFilter"></ngx-token-info>
+    <p *ngIf="cancelledTokenFilter.count==0">No cancelled token available</p>
   </nb-tab>
   <nb-tab tabTitle="Completed">
-    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:'COMPLETED'"></ngx-token-info>
+    <ngx-token-info [bookingSummary]="bookingSummary" (actionResponse)="updateList($event)" *ngFor="let bookingSummary of bookingSummaryList | tokenFilter:completedTokenFilter"></ngx-token-info>
+    <p *ngIf="completedTokenFilter.count==0">No completed token available</p>
   </nb-tab>
 </nb-tabset>

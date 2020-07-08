@@ -5,6 +5,8 @@ import {Sessionfilter} from "../models/sessionfilter";
 import {AdminService} from "../services/admin.service";
 import {AdminSessionSummary} from "../models/AdminSessionSummary";
 import {Router} from "@angular/router";
+import {ResponseStatus} from "../models/ResponseStatus";
+import {AdminSummary} from "../models/AdminSummary";
 
 @Component({
   selector: 'ngx-client-admin-details',
@@ -15,7 +17,7 @@ export class ClientAdminDetailsComponent implements OnInit {
 
   flipped:boolean = false;
   success:string = "success";
-  adminSessionSummaryList: AdminSessionSummary[] = [];
+  adminSummary: AdminSummary;
   filterValue:Sessionfilter = new Sessionfilter();
   minDate:Date;
   maxDate:Date;
@@ -25,6 +27,7 @@ export class ClientAdminDetailsComponent implements OnInit {
   loading:boolean = false;
   selectedSessionID:string;
   selectedAction:string;
+  errors: string[] = [];
 
   constructor(private adminService:AdminService,protected dateService: NbDateService<Date>, private dialogService: NbDialogService,private router: Router) {
     this.minDate = this.dateService.addDay(this.dateService.today(), 0);
@@ -34,14 +37,13 @@ export class ClientAdminDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.dataAvailable = false;
     this.adminService.getSessions().subscribe( response => {
-      this.adminSessionSummaryList = response.message;
+      this.adminSummary = response.message;
       this.filterValue.filterDate = moment(this.dateService.today()).format('DD-MM-YYYY');
       this.filterValue.selectedDate = this.dateService.today();
       this.filterValue.selectedDay = this.dateToFromNowDaily(this.filterValue.selectedDate);
+      this.clientName = this.adminSummary.clientName;
       this.dataAvailable = true;
-      if (this.adminSessionSummaryList != null && this.adminSessionSummaryList.length > 0) {
-        this.clientName = this.adminSessionSummaryList[0].clientName;
-      }
+
       console.log(response);
     });
   }
@@ -71,10 +73,12 @@ export class ClientAdminDetailsComponent implements OnInit {
   startSession() {
     this.adminService.startSession(this.selectedSessionID).subscribe(response => {
       if(response.status=='SUCCESS') {
-        console.log();
-        //this.router.navigate(['/base/admin/activesession']);
+        this.router.navigate(['/base/admin/activesession']);
+      } else if(response.status=='FAILURE') {
+        this.errors = [];
+        this.errors.push(response.message);
       }
-      console.log();
+      this.flipToggle();
     });
 
   }

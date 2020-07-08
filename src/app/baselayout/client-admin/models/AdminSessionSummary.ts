@@ -4,11 +4,9 @@ export class AdminSessionSummary {
   submittedTokens:number;
   bookedTokens:number;
   completedTokens:number;
-  clientId:string;
-  clientName:string;
   day:string;
   date:string;
   fromTime:string;
   toTime:string;
-
+  status:string;
 }

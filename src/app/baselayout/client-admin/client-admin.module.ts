@@ -15,9 +15,10 @@ import {
 import {FormsModule} from "@angular/forms";
 import {AdminService} from "./services/admin.service";
 import {AdminDateFilterPipe} from "./pipe/admin-date-filter.pipe";
+import { ActiveSessionComponent } from './active-session/active-session.component';
 
 @NgModule({
-  declarations: [ClientAdminComponent, ClientAdminHomeComponent, ClientAdminDetailsComponent ,AdminDateFilterPipe],
+  declarations: [ClientAdminComponent, ClientAdminHomeComponent, ClientAdminDetailsComponent ,AdminDateFilterPipe, ActiveSessionComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,

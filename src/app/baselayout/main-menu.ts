@@ -11,10 +11,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Manage Bookings',
     icon: 'keypad-outline',
     link: '/base/client/managebooking',
-  },{
+  },
+  {
     title: 'Start Session',
     icon: 'keypad-outline',
     link: '/base/admin/home',
   },
-
+  {
+    title: 'Active Session',
+    icon: 'keypad-outline',
+    link: '/base/admin/activesession',
+  },
 ];

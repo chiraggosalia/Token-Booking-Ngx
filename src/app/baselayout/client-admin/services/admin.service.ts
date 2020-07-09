@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppConstant} from "../../../app-constant";
 import {ResponseStatus} from "../models/ResponseStatus";
-import {AdminSessionSummary} from "../models/AdminSessionSummary";
 import {AdminSummary} from "../models/AdminSummary";
+import {TokenInfo} from "../models/TokenInfo";
 
 @Injectable()
 export class AdminService {
@@ -19,17 +19,17 @@ export class AdminService {
 
   startSession(sessionId) {
     const url = this.serverURL + '/admin/startsession/' + sessionId;
-    return this.http.get<ResponseStatus<any>>(url);
+    return this.http.get<ResponseStatus<string>>(url);
   }
 
   nextToken(sessionId) {
     const url = this.serverURL + '/admin/nexttoken/' + sessionId;
-    return this.http.get<ResponseStatus<any>>(url);
+    return this.http.get<ResponseStatus<TokenInfo>>(url);
   }
 
   lastToken(sessionId) {
     const url = this.serverURL + '/admin/lasttoken/' + sessionId;
-    return this.http.get<ResponseStatus<any>>(url);
+    return this.http.get<ResponseStatus<TokenInfo>>(url);
   }
 
   getActiveSession() {
@@ -39,6 +39,6 @@ export class AdminService {
 
   completeSession(sessionId) {
     const url = this.serverURL + '/admin/completesession/' + sessionId;
-    return this.http.get<ResponseStatus<any>>(url);
+    return this.http.get<ResponseStatus<string>>(url);
   }
 }

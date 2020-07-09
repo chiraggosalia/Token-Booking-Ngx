@@ -4,6 +4,7 @@
       <nb-card-header>{{clientName}}</nb-card-header>
       <nb-card-body>
         <p *ngFor="let error of errors" style="color: red"><b>{{error}}</b></p>
+        <p *ngFor="let message of messages" style="color: darkgreen"><b>{{message}}</b></p>
         <h3>{{filterValue.selectedDay}}'s sessions</h3>
         <nb-accordion>
           <nb-accordion-item *ngFor="let session of adminSummary?.adminSessionSummaryList | adminDateFilter:filterValue">
@@ -14,9 +15,12 @@
               <p>Available tokens {{session.availableTokens}}</p>
               <p>Booked tokens {{session.bookedTokens}}</p>
               <p>Submitted tokens {{session.submittedTokens}}</p>
+              <p>Completed tokens {{session.completedTokens}}</p>
               <button nbButton *ngIf="session.status=='ACTIVE'" [status]="success" (click)="openConfirmation(session.sessionId,'START')">Start
               </button>
               <button nbButton *ngIf="session.status=='INPROGRESS'" [status]="success" [routerLink]="['/base/admin/activesession',session.sessionId]">Continue
+              </button>
+              <button nbButton *ngIf="session.status=='INPROGRESS'" class="button-border" [status]="success" (click)="openConfirmation(session.sessionId,'COMPLETE')" >Complete
               </button>
             </nb-accordion-item-body>
           </nb-accordion-item>

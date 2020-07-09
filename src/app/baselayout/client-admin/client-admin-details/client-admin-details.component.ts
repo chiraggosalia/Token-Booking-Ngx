@@ -3,9 +3,7 @@ import * as moment from 'moment';
 import {NbDateService, NbDialogService} from "@nebular/theme";
 import {Sessionfilter} from "../models/sessionfilter";
 import {AdminService} from "../services/admin.service";
-import {AdminSessionSummary} from "../models/AdminSessionSummary";
 import {Router} from "@angular/router";
-import {ResponseStatus} from "../models/ResponseStatus";
 import {AdminSummary} from "../models/AdminSummary";
 
 @Component({
@@ -28,6 +26,7 @@ export class ClientAdminDetailsComponent implements OnInit {
   selectedSessionID:string;
   selectedAction:string;
   errors: string[] = [];
+  messages: string[] = [];
 
   constructor(private adminService:AdminService,protected dateService: NbDateService<Date>, private dialogService: NbDialogService,private router: Router) {
     this.minDate = this.dateService.addDay(this.dateService.today(), 0);
@@ -36,6 +35,8 @@ export class ClientAdminDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataAvailable = false;
+    this.errors = [];
+    this.messages = [];
     this.adminService.getSessions().subscribe( response => {
       this.adminSummary = response.message;
       this.filterValue.filterDate = moment(this.dateService.today()).format('DD-MM-YYYY');
@@ -73,7 +74,7 @@ export class ClientAdminDetailsComponent implements OnInit {
   startSession() {
     this.adminService.startSession(this.selectedSessionID).subscribe(response => {
       if(response.status=='SUCCESS') {
-        this.router.navigate(['/base/admin/activesession']);
+        this.router.navigate(['/base/admin/activesession',this.selectedSessionID]);
       } else if(response.status=='FAILURE') {
         this.errors = [];
         this.errors.push(response.message);
@@ -87,7 +88,17 @@ export class ClientAdminDetailsComponent implements OnInit {
     this.flipToggle();
   }
   completeSession() {
-    this.flipToggle();
+    this.adminService.completeSession(this.selectedSessionID).subscribe(response => {
+      if(response.status=='SUCCESS') {
+        this.messages = [];
+        this.messages.push(response.message);
+        setTimeout(() => this.ngOnInit(), 2000);
+      } else if(response.status=='FAILURE') {
+        this.errors = [];
+        this.errors.push(response.message);
+      }
+      this.flipToggle();
+    });
   }
 
   flipToggle() {

@@ -1,10 +1,20 @@
-<nb-card>
+<nb-card [status]="success" fullWidth>
+  <nb-card-header>
+    <div id="container">
+      <div id="left">{{tokenInfo?.userName}}</div>
+      <div id="right"><span>{{tokenInfo?.fromTime +' '+ tokenInfo?.toTime}}</span></div>
+      <div id="center"></div>
+    </div>
+  </nb-card-header>
   <nb-card-body>
-    <div class="circle">{{tokenNumber}}</div>
-
+    <div class="text-center">
+      <div class="circle">{{tokenInfo?.tokenNumber}}</div>
+    </div>
   </nb-card-body>
   <nb-card-footer>
-    <button nbButton [status]="success" >Next
-    </button>
+    <div class="text-center">
+      <button nbButton [status]="success" (click)="nextToken()">Next
+      </button>
+    </div>
   </nb-card-footer>
 </nb-card>

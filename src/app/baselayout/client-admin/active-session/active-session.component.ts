@@ -11,25 +11,26 @@ import {TokenInfo} from "../models/TokenInfo";
 export class ActiveSessionComponent implements OnInit {
 
   sessionId: string
-  tokenNumber: number = 2;
   success: string = "success";
   tokenInfo: TokenInfo;
   errors: string[] = [];
+  tokenAvailable: boolean = false;
+
   constructor(private adminService:AdminService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      console.log("IIIIDDDD"+params['id']);
       this.sessionId = params['id'];
       this.adminService.lastToken(this.sessionId).subscribe(response => {
-        if (response.status == 'SUCCESS' && response.message == null) {
-          this.adminService.nextToken(this.sessionId).subscribe(response => {
-            this.tokenInfo = response.message;
-            console.log(response.message);
-          });
+        if (response.status == 'SUCCESS') {
+          this.tokenInfo = response.message;
+          if (this.tokenInfo == null) {
+            this.tokenAvailable = false;
+            this.errors.push("No submitted token available.");
+          } else {
+            this.tokenAvailable = true;
+          }
         }
-        this.tokenInfo = response.message;
-        console.log(this.tokenInfo);
       });
     });
   }
@@ -41,7 +42,6 @@ export class ActiveSessionComponent implements OnInit {
         console.log(this.tokenInfo);
       }
     });
-
   }
 
 }

@@ -1,19 +1,21 @@
 <nb-card [status]="success" fullWidth>
   <nb-card-header>
-    <div id="container">
-      <div id="left">{{tokenInfo?.userName}}</div>
-      <div id="right"><span>{{tokenInfo?.fromTime +' '+ tokenInfo?.toTime}}</span></div>
-      <div id="center"></div>
+    <div >
+      <div>{{tokenInfo?.userName}}</div>
+      <div><span>{{tokenInfo?.fromTime}} {{tokenInfo?.toTime}}</span></div>
     </div>
   </nb-card-header>
   <nb-card-body>
-    <div class="text-center">
+    <p *ngFor="let error of errors" style="color: red"> {{error}}</p>
+    <div class="text-center" *ngIf="tokenAvailable">
+      <!--<div id="left"><nb-icon icon="arrow-back-outline" pack="eva"></nb-icon></div>-->
       <div class="circle">{{tokenInfo?.tokenNumber}}</div>
+      <!--<div id="right"><nb-icon icon="arrow-forward-outline"  pack="eva"></nb-icon></div>-->
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="text-center">
-      <button nbButton [status]="success" (click)="nextToken()">Next
+      <button nbButton [status]="success" (click)="nextToken()" *ngIf="tokenAvailable">Next
       </button>
     </div>
   </nb-card-footer>

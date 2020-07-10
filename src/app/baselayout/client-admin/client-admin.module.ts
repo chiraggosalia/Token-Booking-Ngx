@@ -5,12 +5,12 @@ import { ClientAdminHomeComponent } from './client-admin-home/client-admin-home.
 import {ClientRoutingModule} from "./client-admin-routing.module";
 import {ClientAdminDetailsComponent} from "./client-admin-details/client-admin-details.component";
 import {
-  NbAccordionModule,
-  NbButtonModule,
-  NbCardModule,
-  NbDatepickerModule,
-  NbInputModule,
-  NbSpinnerModule
+    NbAccordionModule,
+    NbButtonModule,
+    NbCardModule,
+    NbDatepickerModule, NbIconModule,
+    NbInputModule,
+    NbSpinnerModule
 } from "@nebular/theme";
 import {FormsModule} from "@angular/forms";
 import {AdminService} from "./services/admin.service";
@@ -19,17 +19,18 @@ import { ActiveSessionComponent } from './active-session/active-session.componen
 
 @NgModule({
   declarations: [ClientAdminComponent, ClientAdminHomeComponent, ClientAdminDetailsComponent ,AdminDateFilterPipe, ActiveSessionComponent],
-  imports: [
-    CommonModule,
-    ClientRoutingModule,
-    NbCardModule,
-    NbAccordionModule,
-    NbButtonModule,
-    NbDatepickerModule,
-    FormsModule,
-    NbSpinnerModule,
-    NbInputModule
-  ],
+    imports: [
+        CommonModule,
+        ClientRoutingModule,
+        NbCardModule,
+        NbAccordionModule,
+        NbButtonModule,
+        NbDatepickerModule,
+        FormsModule,
+        NbSpinnerModule,
+        NbInputModule,
+        NbIconModule
+    ],
   providers:[AdminService]
 })
 export class ClientAdminModule { }

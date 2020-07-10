@@ -15,6 +15,9 @@ export class ClientAdminDetailsComponent implements OnInit {
 
   flipped:boolean = false;
   success:string = "success";
+  danger:string = "danger";
+  warning:string = "warning";
+
   adminSummary: AdminSummary;
   filterValue:Sessionfilter = new Sessionfilter();
   minDate:Date;
@@ -63,8 +66,8 @@ export class ClientAdminDetailsComponent implements OnInit {
       case 'CANCEL':
         this.cancelSession();
         break;
-      case 'COMPLETE':
-        this.completeSession();
+      case 'FINISH':
+        this.finishSession();
         break;
       default:
         break;
@@ -85,10 +88,20 @@ export class ClientAdminDetailsComponent implements OnInit {
   }
 
   cancelSession() {
-    this.flipToggle();
+    this.adminService.cancelSession(this.selectedSessionID).subscribe(response => {
+      if(response.status=='SUCCESS') {
+        this.messages = [];
+        this.messages.push(response.message);
+        setTimeout(() => this.ngOnInit(), 2000);
+      } else if(response.status=='FAILURE') {
+        this.errors = [];
+        this.errors.push(response.message);
+      }
+      this.flipToggle();
+    });
   }
-  completeSession() {
-    this.adminService.completeSession(this.selectedSessionID).subscribe(response => {
+  finishSession() {
+    this.adminService.finishSession(this.selectedSessionID).subscribe(response => {
       if(response.status=='SUCCESS') {
         this.messages = [];
         this.messages.push(response.message);

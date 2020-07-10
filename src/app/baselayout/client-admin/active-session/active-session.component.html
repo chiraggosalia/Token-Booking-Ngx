@@ -8,14 +8,12 @@
   <nb-card-body>
     <p *ngFor="let error of errors" style="color: red"> {{error}}</p>
     <div class="text-center" *ngIf="tokenAvailable">
-      <!--<div id="left"><nb-icon icon="arrow-back-outline" pack="eva"></nb-icon></div>-->
       <div class="circle">{{tokenInfo?.tokenNumber}}</div>
-      <!--<div id="right"><nb-icon icon="arrow-forward-outline"  pack="eva"></nb-icon></div>-->
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="text-center">
-      <button nbButton [status]="success" (click)="nextToken()" *ngIf="tokenAvailable">Next
+      <button nbButton [status]="success" (click)="nextToken()" *ngIf="tokenAvailable">Next Token
       </button>
     </div>
   </nb-card-footer>

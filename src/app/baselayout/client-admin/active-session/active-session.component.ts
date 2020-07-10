@@ -37,8 +37,12 @@ export class ActiveSessionComponent implements OnInit {
 
   nextToken() {
     this.adminService.nextToken(this.sessionId).subscribe(response => {
-      if(response.status == 'SUCCESS') {
+      if (response.status == 'SUCCESS') {
         this.tokenInfo = response.message;
+        if (!this.tokenInfo.hasMoreTokens) {
+          this.errors = [];
+          this.errors.push("No more submitted tokens available. Please try after some time.");
+        }
         console.log(this.tokenInfo);
       }
     });

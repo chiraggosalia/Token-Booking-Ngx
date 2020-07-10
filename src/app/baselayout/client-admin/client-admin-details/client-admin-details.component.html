@@ -12,19 +12,21 @@
               {{session.fromTime + " " + session.toTime }}
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-              <p>Available tokens {{session.availableTokens}}</p>
-              <p>Booked tokens {{session.bookedTokens}}</p>
+              <p>Total Booked tokens {{session.bookedTokens + session.submittedTokens + session.completedTokens}}</p>
               <p>Submitted tokens {{session.submittedTokens}}</p>
-              <p>Completed tokens {{session.completedTokens}}</p>
+              <p *ngIf="session.status=='INPROGRESS'" style="color:orange;">Completed tokens {{session.completedTokens}}</p>
               <button nbButton *ngIf="session.status=='ACTIVE'" [status]="success" (click)="openConfirmation(session.sessionId,'START')">Start
               </button>
               <button nbButton *ngIf="session.status=='INPROGRESS'" [status]="success" [routerLink]="['/base/admin/activesession',session.sessionId]">Continue
               </button>
-              <button nbButton *ngIf="session.status=='INPROGRESS'" class="button-border" [status]="success" (click)="openConfirmation(session.sessionId,'COMPLETE')" >Complete
+              <button nbButton *ngIf="session.status=='INPROGRESS'" class="button-border" [status]="warning" (click)="openConfirmation(session.sessionId,'FINISH')" >Finish
+              </button>
+              <button nbButton *ngIf="session.status=='ACTIVE'" class="button-border" [status]="danger" (click)="openConfirmation(session.sessionId,'CANCEL')" >Cancel
               </button>
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
+        <div *ngIf="filterValue.filterCount == 0">No sessions available</div>
       </nb-card-body>
       <nb-card-footer>
         <input nbInput
@@ -37,11 +39,11 @@
   </nb-card-front>
   <nb-card-back>
     <nb-card status="info">
-      <nb-card-header>Confirmation</nb-card-header>
+      <nb-card-header><b>Confirmation</b></nb-card-header>
       <nb-card-body>
         <p *ngIf="selectedAction=='START'">Do you want to start the session?</p>
-        <p *ngIf="selectedAction=='CANCEL'">Do you want to cancel the session?</p>
-        <p *ngIf="selectedAction=='COMPLETE'">Do you want to complete the session?</p>
+        <p *ngIf="selectedAction=='CANCEL'" style="color: red">Do you want to cancel the session? All the booked and submitted tokens will be cancelled</p>
+        <p *ngIf="selectedAction=='FINISH'">Do you want to finish the session? All the remaining booked tokens, if any, will be cancelled</p>
       </nb-card-body>
       <nb-card-footer>
         <button nbButton status="primary" size="medium" (click)="OK()"

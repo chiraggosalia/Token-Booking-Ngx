@@ -37,8 +37,13 @@ export class AdminService {
     return this.http.get<ResponseStatus<AdminSummary>>(url);
   }
 
-  completeSession(sessionId) {
-    const url = this.serverURL + '/admin/completesession/' + sessionId;
+  finishSession(sessionId) {
+    const url = this.serverURL + '/admin/finishsession/' + sessionId;
+    return this.http.get<ResponseStatus<string>>(url);
+  }
+
+  cancelSession(sessionId) {
+    const url = this.serverURL + '/admin/cancelsession/' + sessionId;
     return this.http.get<ResponseStatus<string>>(url);
   }
 }

@@ -26,11 +26,15 @@ export class NgxLoginComponent implements OnInit {
         this.showMessages.success = true;
         this.showMessages.error = false;
         this.messages = [];
-
-        localStorage.setItem("currentUser", JSON.stringify({'userName':result.userName,'jwt':result.jwt}));
+        localStorage.setItem("currentUser", JSON.stringify({'userName':result.userName,'jwt':result.jwt,'role':result.role}));
         this.messages.push("Login Successful!!");
         this.messages.push("Redirecting to home page...Please wait..");
-        setTimeout(() => this.router.navigate(['/']), 2000);
+        if (result.role == "USER") {
+          setTimeout(() => this.router.navigate(['/base/client/home']), 2000);
+        } else if (result.role == "ADMIN") {
+          setTimeout(() => this.router.navigate(['/base/admin/home']), 2000);
+        }
+
       },
       error => {
         this.showMessages.error = true;

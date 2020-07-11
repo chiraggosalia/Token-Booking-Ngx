@@ -42,6 +42,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
 
   userMenu = [ { title: this.managebookingTitle }, { title: this.logoutTitle } ];
+  clientMenu = [ { title: this.managebookingTitle }, { title: this.logoutTitle } ];
+  adminMenu = [ { title: this.logoutTitle } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -58,8 +60,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let currentUser: any = localStorage.getItem("currentUser");
     if (currentUser) {
       let currentUserJson: any = JSON.parse(currentUser);
-      this.user = {'name': currentUserJson.userName};
-
+      this.user = {'name': currentUserJson.userName,'role': currentUserJson.role};
+      if(this.user.role == 'ADMIN') {
+        this.userMenu = this.adminMenu;
+        this.menuService.navigateHome('menuTag');
+      } else if (this.user.role == 'USER') {
+        this.userMenu = this.clientMenu;
+      }
     }
 
     const { xl } = this.breakpointService.getBreakpointsMap();

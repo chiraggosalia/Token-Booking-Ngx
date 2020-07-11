@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MENU_ITEMS} from "./main-menu";
+import {ADMIN_MENU_ITEMS, MENU_ITEMS} from "./main-menu";
 
 @Component({
   selector: 'ngx-base-layout',
@@ -11,6 +11,13 @@ export class BaseLayoutComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    let currentUser: any = localStorage.getItem("currentUser");
+    if (currentUser) {
+      let currentUserJson: any = JSON.parse(currentUser);
+      if(currentUserJson.role =='ADMIN') {
+        this.menu = ADMIN_MENU_ITEMS;
+      }
+    }
   }
 
 }

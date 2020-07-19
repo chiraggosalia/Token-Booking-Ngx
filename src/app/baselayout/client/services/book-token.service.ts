@@ -3,9 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {AppConstant} from '../../../app-constant';
 import {ClientAndSessionDetails} from "../models/ClientAndSessionDetails";
 import {Observable} from "rxjs";
-import {ClientIdNameAddress} from "../models/ClientIdNameAddress";
 import {ClientNameAndId} from "../models/ClientNameAndId";
 import {BookingDetails} from "../models/BookingDetails";
+import {ResponseStatus} from "../../client-admin/models/ResponseStatus";
 
 @Injectable()
 export class BookTokenService {
@@ -27,8 +27,8 @@ export class BookTokenService {
     return this._http.get(url);
   }
 
-  confirmBooking(body): Observable<BookingDetails> {
-    return this._http.post<BookingDetails>(this.baseURL + '/booktoken', body);
+  confirmBooking(body): Observable<ResponseStatus<BookingDetails>> {
+    return this._http.post<ResponseStatus<BookingDetails>>(this.baseURL + '/booktoken', body);
   }
 
 }

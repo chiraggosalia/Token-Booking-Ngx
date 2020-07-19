@@ -1,9 +1,9 @@
-<nb-flip-card [flipped]="flipped" [showToggleButton]="false" *ngIf="dataAvailable">
+<nb-flip-card [flipped]="flipped" [showToggleButton]="false" *ngIf="dataAvailable" class="display-layout">
   <nb-card-front>
     <nb-card status="success">
       <nb-card-header>{{clientSessionDetails?.clientIdNameAddress?.clientName}}</nb-card-header>
       <nb-card-body>
-        <h3>{{filterValue.selectedDay}}'s sessions</h3>
+        <h6>{{filterValue.selectedDay}}'s sessions</h6>
         <nb-accordion>
           <nb-accordion-item *ngFor="let session of clientSessionDetails?.sessions | dateFilter:filterValue">
             <nb-accordion-item-header>
@@ -12,9 +12,16 @@
             <nb-accordion-item-body>
               <p>Available tokens {{session.availableToken}}</p>
               <p>Total tokens {{session.noOfTokens}}</p>
-              <p *ngIf="session.tokenNumber>0" style="color: green" ><b>Your Booked token number is {{session.tokenNumber}}</b></p>
+              <p *ngIf="session.tokenNumber>0">
+                <b style="color: green">Your Booked token number is {{session.tokenNumber}}</b>
+                <br/>
+                <b style="color: red">Please submit your token once you reach the clinic</b>
+              </p>
+              <p *ngIf="session.availableToken<1 && session.tokenNumber<1">
+                <b style="color: red">No tokens available</b>
+              </p>
               <button nbButton [status]="success" (click)="confirmTokenBooking(session.sessionId)"
-                      [disabled]="session.tokenNumber>0">Book
+                      [disabled]="session.tokenNumber>0 || session.availableToken<1">Book
               </button>
             </nb-accordion-item-body>
           </nb-accordion-item>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ManageBookingService} from "../services/manage-booking.service";
 import {BookingSummary} from "../models/BookingSummary";
+import {NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService} from "@nebular/theme";
 
 @Component({
   selector: 'ngx-manage-booking',
@@ -15,17 +16,23 @@ export class ManageBookingComponent implements OnInit {
   cancelledTokenFilter:any;
   completedTokenFilter:any;
 
-  constructor(private manageBookingService:ManageBookingService) { }
+  constructor(private manageBookingService:ManageBookingService, private toastrService: NbToastrService) { }
 
   ngOnInit(): void {
     this.dataAvailable = false;
     this.bookingSummaryList = [];
-    this.manageBookingService.getBookingsByUserId().subscribe( response => {
-      this.bookingSummaryList.push(...response);
-      this.bookedTokenFilter = {status:'BOOKED'};
-      this.cancelledTokenFilter = {status:'CANCELLED'};
-      this.completedTokenFilter = {status:'COMPLETED'};
-      this.dataAvailable = true;
+    this.manageBookingService.getBookingsByUserId().subscribe(response => {
+      if (response.status === 'SUCCESS') {
+        this.bookingSummaryList.push(...response.message);
+        this.bookedTokenFilter = {status: 'BOOKED'};
+        this.cancelledTokenFilter = {status: 'CANCELLED'};
+        this.completedTokenFilter = {status: 'COMPLETED'};
+        this.dataAvailable = true;
+      } else {
+        this.showToast('Warning', 'warning', response.errorMessage);
+      }
+    }, error => {
+      this.showToast('Error', 'danger', error);
     })
   }
 
@@ -38,6 +45,22 @@ export class ManageBookingComponent implements OnInit {
     }
     let temp = [...this.bookingSummaryList];
     this.bookingSummaryList = temp;
+  }
+
+  showToast(title:string, type: NbComponentStatus, body: string) {
+    const config = {
+      status: type,
+      destroyByClick: true,
+      duration: 5000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+      preventDuplicates: false,
+    };
+
+    this.toastrService.show(
+      body,
+      title,
+      config);
   }
 
 }

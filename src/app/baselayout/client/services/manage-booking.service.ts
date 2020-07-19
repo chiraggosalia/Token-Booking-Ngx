@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {AppConstant} from "../../../app-constant";
 import {Observable} from "rxjs";
 import {BookingSummary} from "../models/BookingSummary";
+import {ResponseStatus} from "../../client-admin/models/ResponseStatus";
 
 @Injectable()
 export class ManageBookingService {
@@ -11,19 +12,19 @@ export class ManageBookingService {
 
   constructor(private _http : HttpClient) { }
 
-  getBookingsByUserId() : Observable<BookingSummary[]> {
+  getBookingsByUserId() : Observable<ResponseStatus<BookingSummary[]>> {
       const url = this.baseURL + '/users/bookings';
-      return this._http.get<BookingSummary[]>(url);
+      return this._http.get<ResponseStatus<BookingSummary[]>>(url);
   }
 
-  cancelBooking(bookingId) : Observable<BookingSummary> {
+  cancelBooking(bookingId) : Observable<ResponseStatus<BookingSummary>> {
     const url = this.baseURL + '/cancelBooking/' + bookingId;
-    return this._http.put<BookingSummary>(url, null);
+    return this._http.put<ResponseStatus<BookingSummary>>(url, null);
   }
 
-  submitBooking(bookingId) : Observable<BookingSummary> {
+  submitBooking(bookingId) : Observable<ResponseStatus<BookingSummary>> {
     const url = this.baseURL + '/submitBooking/' + bookingId;
-    return this._http.put<BookingSummary>(url, null);
+    return this._http.put<ResponseStatus<BookingSummary>>(url, null);
   }
 
 }

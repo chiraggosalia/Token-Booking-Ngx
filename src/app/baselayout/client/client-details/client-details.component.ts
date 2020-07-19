@@ -2,8 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import {BookTokenService} from '../services/book-token.service';
 import {ClientAndSessionDetails} from "../models/ClientAndSessionDetails";
 import * as moment from 'moment';
-import {NbDateService, NbDialogService} from "@nebular/theme";
+import {
+  NbComponentStatus,
+  NbDateService,
+  NbDialogService,
+  NbGlobalPhysicalPosition,
+  NbToastrService
+} from "@nebular/theme";
 import {Sessionfilter} from "../models/sessionfilter";
+import {ResponseStatus} from "../../client-admin/models/ResponseStatus";
 
 @Component({
   selector: 'ngx-client-details',
@@ -26,7 +33,7 @@ export class ClientDetailsComponent implements OnInit {
   loading:boolean = false;
   selectedSessionID:string;
 
-  constructor(private bookTokenService: BookTokenService, protected dateService: NbDateService<Date>, private dialogService: NbDialogService) {
+  constructor(private bookTokenService: BookTokenService, protected dateService: NbDateService<Date>, private toastrService: NbToastrService) {
     this.minDate = this.dateService.addDay(this.dateService.today(), 0);
     this.maxDate = this.dateService.addDay(this.dateService.today(), 6);
   }
@@ -83,14 +90,40 @@ export class ClientDetailsComponent implements OnInit {
 
     this.bookTokenService.confirmBooking(requestBody).subscribe( response => {
       this.loading = false;
-      this.clientSessionDetails.sessions.forEach( session => {
-        if(session.sessionId == response.sessionId) {
-          session.tokenNumber = response.tokenNumber;
-          session.availableToken = session.availableToken - 1;
-        }
-      });
+      if (response.status == 'SUCCESS') {
+        this.clientSessionDetails.sessions.forEach(session => {
+          if (session.sessionId == response.message.sessionId) {
+            session.tokenNumber = response.message.tokenNumber;
+            session.availableToken = session.availableToken - 1;
+          }
+        });
+      } else {
+        console.log(response.errorMessage);
+        this.showToast('danger', response.errorMessage);
+      }
+      this.flipToggle();
+    }, error => {
+      console.log(error);
+      this.showToast('danger',error);
+      this.loading = false;
       this.flipToggle();
     });
+  }
+
+  private showToast(type: NbComponentStatus, body: string) {
+    const config = {
+      status: type,
+      destroyByClick: true,
+      duration: 5000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+      preventDuplicates: false,
+    };
+
+    this.toastrService.show(
+      body,
+      `Error`,
+      config);
   }
 
 }

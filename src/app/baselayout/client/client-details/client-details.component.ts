@@ -97,20 +97,21 @@ export class ClientDetailsComponent implements OnInit {
             session.availableToken = session.availableToken - 1;
           }
         });
+        this.showToast('Info','success', 'Successfully booked token');
       } else {
         console.log(response.errorMessage);
-        this.showToast('danger', response.errorMessage);
+        this.showToast('Info','primary', response.errorMessage);
       }
       this.flipToggle();
     }, error => {
       console.log(error);
-      this.showToast('danger',error);
+      this.showToast('Error','danger',error);
       this.loading = false;
       this.flipToggle();
     });
   }
 
-  private showToast(type: NbComponentStatus, body: string) {
+  private showToast(title:string, type: NbComponentStatus, body: string) {
     const config = {
       status: type,
       destroyByClick: true,
@@ -122,7 +123,7 @@ export class ClientDetailsComponent implements OnInit {
 
     this.toastrService.show(
       body,
-      `Error`,
+      title,
       config);
   }
 

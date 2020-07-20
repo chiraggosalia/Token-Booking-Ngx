@@ -1,9 +1,11 @@
-
 <nb-flip-card [showToggleButton]="false" [flipped]="flipped">
   <nb-card-front>
     <nb-card size="tiny" status="success">
       <nb-card-header>{{bookingSummary.clientName}}</nb-card-header>
       <nb-card-body>
+        <p id="startLat" [hidden]="true"></p>
+        <p id="startLon" [hidden]="true"></p>
+        <p id="locationError" [hidden]="true"></p>
         <div *ngIf="bookingSummary.status=='BOOKED'">
           <p style="color: green"><b>Your booked token no. is {{bookingSummary.tokenNumber}}</b></p>
           <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on </b>

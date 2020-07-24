@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../services/admin.service";
 import {ActivatedRoute} from "@angular/router";
 import {TokenInfo} from "../models/TokenInfo";
+import {NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService} from "@nebular/theme";
 
 @Component({
   selector: 'ngx-active-session',
@@ -16,7 +17,7 @@ export class ActiveSessionComponent implements OnInit {
   errors: string[] = [];
   tokenAvailable: boolean = false;
 
-  constructor(private adminService:AdminService, private route:ActivatedRoute) { }
+  constructor(private adminService:AdminService, private route:ActivatedRoute, private toastrService: NbToastrService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -31,6 +32,8 @@ export class ActiveSessionComponent implements OnInit {
             this.tokenAvailable = true;
           }
         }
+      } , error => {
+        this.showToast('Error','danger', error.message);
       });
     });
   }
@@ -45,7 +48,25 @@ export class ActiveSessionComponent implements OnInit {
         }
         console.log(this.tokenInfo);
       }
+    },error => {
+      this.showToast('Error','danger', error.message);
     });
+  }
+
+  showToast(title:string, type: NbComponentStatus, body: string) {
+    const config = {
+      status: type,
+      destroyByClick: true,
+      duration: 5000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+      preventDuplicates: false,
+    };
+
+    this.toastrService.show(
+      body,
+      title,
+      config);
   }
 
 }

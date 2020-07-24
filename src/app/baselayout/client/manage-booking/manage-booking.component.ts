@@ -12,9 +12,11 @@ export class ManageBookingComponent implements OnInit {
 
   bookingSummaryList: BookingSummary[] = [];
   dataAvailable: boolean = false;
+  submittedTokenFilter:any;
   bookedTokenFilter:any;
   cancelledTokenFilter:any;
   completedTokenFilter:any;
+  hasSubmittedToken:boolean=false;
 
   constructor(private manageBookingService:ManageBookingService, private toastrService: NbToastrService) { }
 
@@ -23,16 +25,24 @@ export class ManageBookingComponent implements OnInit {
     this.bookingSummaryList = [];
     this.manageBookingService.getBookingsByUserId().subscribe(response => {
       if (response.status === 'SUCCESS') {
+        console.log(response.message);
         this.bookingSummaryList.push(...response.message);
+        this.submittedTokenFilter = {status: 'SUBMITTED'};
         this.bookedTokenFilter = {status: 'BOOKED'};
         this.cancelledTokenFilter = {status: 'CANCELLED'};
         this.completedTokenFilter = {status: 'COMPLETED'};
         this.dataAvailable = true;
+        this.bookingSummaryList.forEach(b => {
+          if (b.status == 'SUBMITTED') {
+            this.hasSubmittedToken = true;
+            return
+          }
+        });
       } else {
         this.showToast('Warning', 'warning', response.errorMessage);
       }
     }, error => {
-      this.showToast('Error', 'danger', error);
+      this.showToast('Error', 'danger', error.message);
     })
   }
 

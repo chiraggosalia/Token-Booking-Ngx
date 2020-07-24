@@ -10,8 +10,8 @@
               {{session.fromTime + " " + session.toTime }}
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-              <p>Available tokens {{session.availableToken}}</p>
-              <p>Total tokens {{session.noOfTokens}}</p>
+              <p *ngIf="session.tokenNumber<1 && session.availableToken>0">Available tokens {{session.availableToken}}</p>
+              <p *ngIf="session.tokenNumber<1 && session.availableToken>0">Total tokens {{session.noOfTokens}}</p>
               <p *ngIf="session.tokenNumber>0">
                 <b style="color: green">Your Booked token number is {{session.tokenNumber}}</b>
                 <br/>

@@ -33,7 +33,7 @@ export class TokenInfoComponent implements OnInit {
 
   submitToken() {
     this.actionSelected = "SUBMIT";
-    this.getLocation();
+    // TODO need secure connection to get user locaotion this.getLocation();
     this.toggleView();
   }
 
@@ -44,10 +44,10 @@ export class TokenInfoComponent implements OnInit {
 
   OK() {
     if (this.actionSelected == 'SUBMIT') {
-      if (!this.validateCurrentLocation()) {
+     /* if (!this.validateCurrentLocation()) {
         this.toggleView();
         return;
-      }
+      }*/
       this.loading = true;
       this.manageBookingService.submitBooking(this.bookingSummary.bookingId).subscribe(response => {
         this.loading = false;
@@ -60,7 +60,7 @@ export class TokenInfoComponent implements OnInit {
         this.toggleView();
       }, error => {
         this.loading = false;
-        this.showToast('Error','danger', error);
+        this.showToast('Error','danger', error.message);
       });
     } else if (this.actionSelected == 'CANCEL') {
       this.manageBookingService.cancelBooking(this.bookingSummary.bookingId).subscribe(response => {
@@ -73,7 +73,7 @@ export class TokenInfoComponent implements OnInit {
         }
         this.toggleView();
       }, error => {
-        this.showToast('Error', 'danger', error);
+        this.showToast('Error', 'danger', error.message);
         this.loading = false;
       });
     }
@@ -124,7 +124,7 @@ export class TokenInfoComponent implements OnInit {
     try {
       let error = document.getElementById('locationError').innerHTML;
       if (error in [GeoLocationErrorCodeEnum.BROWSER_NOT_SUPPORTED, GeoLocationErrorCodeEnum.PERMISSION_DENIED, GeoLocationErrorCodeEnum.TIMEOUT]) {
-        this.showToast('Error', 'danger', 'Can not identify current location');
+        this.showToast('Error', 'danger', 'Can not identify current location - ' + error);
         return false;
       }
       let currentLat = document.getElementById('startLat').innerText;

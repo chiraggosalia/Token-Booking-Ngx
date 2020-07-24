@@ -6,6 +6,11 @@
         <p id="startLat" [hidden]="true"></p>
         <p id="startLon" [hidden]="true"></p>
         <p id="locationError" [hidden]="true"></p>
+        <div *ngIf="bookingSummary.status=='SUBMITTED'">
+          <p style="color: green"><b>Your submitted token no. is {{bookingSummary.tokenNumber}}</b></p>
+          <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on </b>
+            <b>{{bookingSummary.date}}</b></p>
+        </div>
         <div *ngIf="bookingSummary.status=='BOOKED'">
           <p style="color: green"><b>Your booked token no. is {{bookingSummary.tokenNumber}}</b></p>
           <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on </b>

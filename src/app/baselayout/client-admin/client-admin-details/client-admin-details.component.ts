@@ -1,6 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
-import {NbDateService, NbDialogService} from "@nebular/theme";
+import {
+  NbComponentStatus,
+  NbDateService,
+  NbDialogService,
+  NbGlobalPhysicalPosition,
+  NbToastrService
+} from "@nebular/theme";
 import {Sessionfilter} from "../models/sessionfilter";
 import {AdminService} from "../services/admin.service";
 import {Router} from "@angular/router";
@@ -28,18 +34,14 @@ export class ClientAdminDetailsComponent implements OnInit {
   loading:boolean = false;
   selectedSessionID:string;
   selectedAction:string;
-  errors: string[] = [];
-  messages: string[] = [];
 
-  constructor(private adminService:AdminService,protected dateService: NbDateService<Date>, private dialogService: NbDialogService,private router: Router) {
+  constructor(private adminService:AdminService,protected dateService: NbDateService<Date>, private dialogService: NbDialogService,private router: Router, private toastrService: NbToastrService) {
     this.minDate = this.dateService.addDay(this.dateService.today(), 0);
     this.maxDate = this.dateService.addDay(this.dateService.today(), 6);
   }
 
   ngOnInit(): void {
     this.dataAvailable = false;
-    this.errors = [];
-    this.messages = [];
     this.adminService.getSessions().subscribe( response => {
       this.adminSummary = response.message;
       this.filterValue.filterDate = moment(this.dateService.today()).format('DD-MM-YYYY');
@@ -49,6 +51,8 @@ export class ClientAdminDetailsComponent implements OnInit {
       this.dataAvailable = true;
 
       console.log(response);
+    },error => {
+      this.showToast('Error','danger', error.message);
     });
   }
 
@@ -79,10 +83,11 @@ export class ClientAdminDetailsComponent implements OnInit {
       if(response.status=='SUCCESS') {
         this.router.navigate(['/base/admin/activesession',this.selectedSessionID]);
       } else if(response.status=='FAILURE') {
-        this.errors = [];
-        this.errors.push(response.message);
+        this.showToast('Error','danger',response.message);
       }
       this.flipToggle();
+    }, error => {
+      this.showToast('Error','danger', error.message);
     });
 
   }
@@ -90,27 +95,27 @@ export class ClientAdminDetailsComponent implements OnInit {
   cancelSession() {
     this.adminService.cancelSession(this.selectedSessionID).subscribe(response => {
       if(response.status=='SUCCESS') {
-        this.messages = [];
-        this.messages.push(response.message);
+        this.showToast('Success','success',response.message);
         setTimeout(() => this.ngOnInit(), 2000);
       } else if(response.status=='FAILURE') {
-        this.errors = [];
-        this.errors.push(response.message);
+        this.showToast('Error','danger',response.message);
       }
       this.flipToggle();
+    },error => {
+      this.showToast('Error','danger', error.message);
     });
   }
   finishSession() {
     this.adminService.finishSession(this.selectedSessionID).subscribe(response => {
       if(response.status=='SUCCESS') {
-        this.messages = [];
-        this.messages.push(response.message);
+        this.showToast('Success','success',response.message);
         setTimeout(() => this.ngOnInit(), 2000);
       } else if(response.status=='FAILURE') {
-        this.errors = [];
-        this.errors.push(response.message);
+        this.showToast('Error','danger',response.message);
       }
       this.flipToggle();
+    }, error => {
+      this.showToast('Error','danger', error.message);
     });
   }
 
@@ -142,6 +147,20 @@ export class ClientAdminDetailsComponent implements OnInit {
     });
   }
 
+  private showToast(title:string, type: NbComponentStatus, body: string) {
+    const config = {
+      status: type,
+      destroyByClick: true,
+      duration: 5000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+      preventDuplicates: false,
+    };
 
+    this.toastrService.show(
+      body,
+      title,
+      config);
+  }
 
 }

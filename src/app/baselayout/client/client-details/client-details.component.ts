@@ -5,12 +5,10 @@ import * as moment from 'moment';
 import {
   NbComponentStatus,
   NbDateService,
-  NbDialogService,
   NbGlobalPhysicalPosition,
   NbToastrService
 } from "@nebular/theme";
 import {Sessionfilter} from "../models/sessionfilter";
-import {ResponseStatus} from "../../client-admin/models/ResponseStatus";
 
 @Component({
   selector: 'ngx-client-details',
@@ -99,13 +97,11 @@ export class ClientDetailsComponent implements OnInit {
         });
         this.showToast('Info','success', 'Successfully booked token');
       } else {
-        console.log(response.errorMessage);
         this.showToast('Info','primary', response.errorMessage);
       }
       this.flipToggle();
     }, error => {
-      console.log(error);
-      this.showToast('Error','danger',error);
+      this.showToast('Error','danger',error.message);
       this.loading = false;
       this.flipToggle();
     });

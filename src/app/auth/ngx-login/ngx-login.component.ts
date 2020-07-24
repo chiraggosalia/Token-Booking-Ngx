@@ -40,7 +40,7 @@ export class NgxLoginComponent implements OnInit {
         this.showMessages.error = true;
         this.showMessages.success = false;
         this.errors = [];
-        this.errors.push(error.error.errorMessage);
+        this.errors.push(error.message);
       });
   }
 

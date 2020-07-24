@@ -41,6 +41,11 @@ export class UserRegisterComponent implements OnInit {
         this.errors.push(response.message);
         this.expanded = false;
       }
+    }, error => {
+      this.showMessages.error = true;
+      this.showMessages.success = false;
+      this.errors = [];
+      this.errors.push(error.message);
     });
   }
 

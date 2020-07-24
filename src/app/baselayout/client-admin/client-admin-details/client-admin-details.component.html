@@ -3,8 +3,6 @@
     <nb-card status="success" >
       <nb-card-header>{{clientName}}</nb-card-header>
       <nb-card-body>
-        <p *ngFor="let error of errors" style="color: red"><b>{{error}}</b></p>
-        <p *ngFor="let message of messages" style="color: darkgreen"><b>{{message}}</b></p>
         <h3>{{filterValue.selectedDay}}'s sessions</h3>
         <nb-accordion>
           <nb-accordion-item *ngFor="let session of adminSummary?.adminSessionSummaryList | adminDateFilter:filterValue">

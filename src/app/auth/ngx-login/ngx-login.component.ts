@@ -14,6 +14,7 @@ export class NgxLoginComponent implements OnInit {
   messages: string[] = [];
   showMessages: any = [];
   errors: string[] = [];
+  loading: boolean = false;
 
   constructor(private authuserService: AuthuserService,private router: Router) {
   }
@@ -22,6 +23,7 @@ export class NgxLoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     this.authuserService.authenticate(this.user).subscribe(result => {
         this.showMessages.success = true;
         this.showMessages.error = false;
@@ -34,13 +36,14 @@ export class NgxLoginComponent implements OnInit {
         } else if (result.role == "ADMIN") {
           setTimeout(() => this.router.navigate(['/base/admin/home']), 2000);
         }
-
+        this.loading = false;
       },
       error => {
         this.showMessages.error = true;
         this.showMessages.success = false;
         this.errors = [];
         this.errors.push(error.message);
+        this.loading = false;
       });
   }
 

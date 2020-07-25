@@ -1,7 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthuserService} from "../authuser.service";
-import {DOCUMENT} from "@angular/common";
-import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 
 @Component({
@@ -17,13 +15,15 @@ export class UserRegisterComponent implements OnInit {
   showMessages: any = [];
   errors: string[] = [];
   expanded:boolean = true;
+  loading:boolean = false;
 
   constructor(private authService:AuthuserService,private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  register(form:NgForm) {
+  register() {
+    this.loading = true;
     this.authService.register(this.user).subscribe( response => {
       if(response.status == 'SUCCESS') {
         this.showMessages.success = true;
@@ -33,19 +33,20 @@ export class UserRegisterComponent implements OnInit {
         this.messages.push("Redirecting to login page...Please wait..");
         setTimeout(() => this.router.navigate(['/auth/login']), 2000);
         this.expanded = false;
-        form.reset();
       } else if(response.status == 'FAILURE') {
         this.showMessages.error=true;
         this.showMessages.success=false;
         this.errors = [];
-        this.errors.push(response.message);
+        this.errors.push(response.errorMessage);
         this.expanded = false;
       }
+      this.loading = false;
     }, error => {
       this.showMessages.error = true;
       this.showMessages.success = false;
       this.errors = [];
       this.errors.push(error.message);
+      this.loading = false;
     });
   }
 

@@ -83,7 +83,7 @@ export class ClientAdminDetailsComponent implements OnInit {
       if(response.status=='SUCCESS') {
         this.router.navigate(['/base/admin/activesession',this.selectedSessionID]);
       } else if(response.status=='FAILURE') {
-        this.showToast('Error','danger',response.message);
+        this.showToast('Error','danger',response.errorMessage);
       }
       this.flipToggle();
     }, error => {
@@ -98,7 +98,7 @@ export class ClientAdminDetailsComponent implements OnInit {
         this.showToast('Success','success',response.message);
         setTimeout(() => this.ngOnInit(), 2000);
       } else if(response.status=='FAILURE') {
-        this.showToast('Error','danger',response.message);
+        this.showToast('Error','danger',response.errorMessage);
       }
       this.flipToggle();
     },error => {
@@ -111,7 +111,7 @@ export class ClientAdminDetailsComponent implements OnInit {
         this.showToast('Success','success',response.message);
         setTimeout(() => this.ngOnInit(), 2000);
       } else if(response.status=='FAILURE') {
-        this.showToast('Error','danger',response.message);
+        this.showToast('Error','danger',response.errorMessage);
       }
       this.flipToggle();
     }, error => {

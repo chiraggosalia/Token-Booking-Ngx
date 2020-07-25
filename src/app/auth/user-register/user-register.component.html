@@ -14,7 +14,7 @@
     <nb-accordion-item-header>Register</nb-accordion-item-header>
     <nb-accordion-item-body>
 
-      <form (ngSubmit)="register(form)" #form="ngForm" aria-labelledby="title">
+      <form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title">
 
         <div class="form-control-group">
           <label class="label" for="input-name">Full name:</label>
@@ -123,7 +123,7 @@
           </ng-container>
         </div>
 
-        <div class="form-control-group">
+        <!--<div class="form-control-group">
           <label class="label" for="input-re-password">Repeat password:</label>
           <input nbInput
                  [(ngModel)]="user.confirmPassword"
@@ -145,7 +145,7 @@
               Password does not match the confirm password.
             </p>
           </ng-container>
-        </div>
+        </div>-->
 
         <div class="form-control-group accept-group" *ngIf="false">
           <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="true">
@@ -157,6 +157,7 @@
                 fullWidth
                 status="primary"
                 size="large"
+                [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="large"
                 [disabled]="submitted || !form.valid"
                 [class.btn-pulse]="submitted">
           Register

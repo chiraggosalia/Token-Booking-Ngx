@@ -6,14 +6,14 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <p *ngFor="let error of errors" style="color: red"> {{error}}</p>
-    <div class="text-center" *ngIf="tokenAvailable">
+    <div class="text-center">
       <div class="circle">{{tokenInfo?.tokenNumber}}</div>
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="text-center">
-      <button nbButton [status]="success" (click)="nextToken()" *ngIf="tokenAvailable">Next Token
+      <button nbButton [status]="success" (click)="nextToken()"
+              [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="medium" >Next Token
       </button>
     </div>
   </nb-card-footer>

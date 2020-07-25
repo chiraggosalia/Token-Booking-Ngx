@@ -25,9 +25,9 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${currentUser.jwt}`
         }
       });
-    } else {
+    } /*else {
       this.router.navigate(['/auth/login']);
-    }
+    }*/
     return next.handle(request).pipe(tap(() => {
       },
       (err: any) => {

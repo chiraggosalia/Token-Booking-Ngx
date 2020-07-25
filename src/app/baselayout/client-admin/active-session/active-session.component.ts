@@ -14,8 +14,7 @@ export class ActiveSessionComponent implements OnInit {
   sessionId: string
   success: string = "success";
   tokenInfo: TokenInfo;
-  errors: string[] = [];
-  tokenAvailable: boolean = false;
+  loading:boolean = false;
 
   constructor(private adminService:AdminService, private route:ActivatedRoute, private toastrService: NbToastrService) { }
 
@@ -26,11 +25,12 @@ export class ActiveSessionComponent implements OnInit {
         if (response.status == 'SUCCESS') {
           this.tokenInfo = response.message;
           if (this.tokenInfo == null) {
-            this.tokenAvailable = false;
-            this.errors.push("No submitted token available.");
-          } else {
-            this.tokenAvailable = true;
+            this.tokenInfo = new TokenInfo()
+            this.tokenInfo.tokenNumber = 0;
+            this.showToast('Error', 'danger', 'No submitted token available');
           }
+        } else {
+          this.showToast('Error','danger', response.errorMessage);
         }
       } , error => {
         this.showToast('Error','danger', error.message);
@@ -39,15 +39,21 @@ export class ActiveSessionComponent implements OnInit {
   }
 
   nextToken() {
+    this.loading = true;
     this.adminService.nextToken(this.sessionId).subscribe(response => {
       if (response.status == 'SUCCESS') {
         this.tokenInfo = response.message;
-        if (!this.tokenInfo.hasMoreTokens) {
-          this.errors = [];
-          this.errors.push("No more submitted tokens available. Please try after some time.");
+        if (this.tokenInfo == null) {
+          this.tokenInfo = new TokenInfo()
+          this.tokenInfo.tokenNumber = 0;
+          this.showToast('Error','danger', 'No submitted token available');
+        } else if (!this.tokenInfo.hasMoreTokens) {
+          this.showToast('Error','danger', 'No more submitted tokens available. Please try after some time.');
         }
-        console.log(this.tokenInfo);
+      } else {
+        this.showToast('Error','danger', response.errorMessage);
       }
+      this.loading = false;
     },error => {
       this.showToast('Error','danger', error.message);
     });

@@ -5,27 +5,28 @@ import { RouterModule } from '@angular/router';
 
 import { NgxAuthRoutingModule } from './auth-routing.module';
 import {
-  NbAccordionModule,
-  NbAlertModule,
-  NbButtonModule,
-  NbCheckboxModule,
-  NbInputModule,
+    NbAccordionModule,
+    NbAlertModule,
+    NbButtonModule,
+    NbCheckboxModule,
+    NbInputModule, NbSpinnerModule,
 } from '@nebular/theme';
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    NbAlertModule,
-    NbInputModule,
-    NbButtonModule,
-    NbCheckboxModule,
-    NgxAuthRoutingModule,
-    NbAccordionModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        NbAlertModule,
+        NbInputModule,
+        NbButtonModule,
+        NbCheckboxModule,
+        NgxAuthRoutingModule,
+        NbAccordionModule,
+        NbSpinnerModule,
+    ],
   declarations: [
   NgxLoginComponent,
   UserRegisterComponent],

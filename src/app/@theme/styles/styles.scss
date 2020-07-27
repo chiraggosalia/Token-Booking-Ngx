@@ -31,3 +31,15 @@
 
   /*@include nb-auth-global();*/
 };
+
+nb-accordion-item-body .item-body {
+  padding: 1rem !important;
+}
+
+nb-tabset .tab-link {
+  padding: 1rem 1rem !important;
+}
+
+nb-tab {
+  padding: 1rem 1rem !important;
+}

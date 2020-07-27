@@ -129,12 +129,12 @@ export class TokenInfoComponent implements OnInit {
       }
       let currentLat = document.getElementById('startLat').innerText;
       let currentLon = document.getElementById('startLon').innerText;
-      let distance = getDistanceFromLatLonInKm(19.028691, 72.846951, currentLat, currentLon);
+      // 19.025077, 72.853223
+      let distance = getDistanceFromLatLonInKm(19.025077, 72.853223, currentLat, currentLon);
       let distanceInMeter = distance*1000;
       distance = Math.round(distance * 100) / 100;
       distanceInMeter = Math.round(distanceInMeter * 100) / 100;
       if (distanceInMeter < 100) {
-        console.log("magic" + distance);
         return true;
       } else {
         if (distance > 1) {
@@ -143,7 +143,6 @@ export class TokenInfoComponent implements OnInit {
         if (distance <= 1) {
           this.showToast('Info', 'warning', 'You are ' + distanceInMeter + ' meters away, please submit after you reach the clinic');
         }
-        console.log("better lucj next time" + distance);
         return false;
       }
 

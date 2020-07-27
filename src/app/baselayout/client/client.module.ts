@@ -6,7 +6,7 @@ import {BookTokenService} from './services/book-token.service';
 import {FormsModule} from "@angular/forms";
 import {DateFilterPipe} from './pipe/date-filter.pipe';
 import {
-    NbAccordionModule,
+    NbAccordionModule, NbBadgeModule,
     NbButtonModule,
     NbCardModule,
     NbDatepickerModule,
@@ -36,6 +36,7 @@ import {TokenFilterPipe} from "./pipe/token-filter.pipe";
         NbSpinnerModule,
         NbTabsetModule,
         NbTooltipModule,
+        NbBadgeModule,
     ],
   providers: [BookTokenService,MdmService,ManageBookingService],
 

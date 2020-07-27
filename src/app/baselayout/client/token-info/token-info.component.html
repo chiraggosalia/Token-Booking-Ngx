@@ -1,28 +1,31 @@
 <nb-flip-card [showToggleButton]="false" [flipped]="flipped" class="display-layout">
   <nb-card-front>
-    <nb-card size="tiny" status="success">
-      <nb-card-header>{{bookingSummary.clientName}}</nb-card-header>
+    <nb-card status="success">
+      <nb-card-header>
+        <div>
+          {{bookingSummary.clientName}}<br/>
+          {{bookingSummary.date}} ({{bookingSummary.fromTime}}-{{bookingSummary.toTime}})
+          </div>
+      </nb-card-header>
       <nb-card-body>
         <p id="startLat" [hidden]="true"></p>
         <p id="startLon" [hidden]="true"></p>
         <p id="locationError" [hidden]="true"></p>
         <div *ngIf="bookingSummary.status=='SUBMITTED'">
           <p style="color: green"><b>Your submitted token no. is {{bookingSummary.tokenNumber}}</b></p>
-          <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on </b>
-            <b>{{bookingSummary.date}}</b></p>
         </div>
         <div *ngIf="bookingSummary.status=='BOOKED'">
-          <p style="color: green"><b>Your booked token no. is {{bookingSummary.tokenNumber}}</b></p>
-          <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on </b>
-            <b>{{bookingSummary.date}}</b></p>
+          <p style="color: green">
+            <b>Your booked token no. is {{bookingSummary.tokenNumber}}</b></p>
+          <p style="color: green">
+            <b>Your recommended time to visit : {{bookingSummary.recommendedTime}}</b>
+          </p>
         </div>
         <div *ngIf="bookingSummary.status=='CANCELLED'">
           <p style="color: red"><b>Your cancelled token number is {{bookingSummary.tokenNumber}}</b></p>
-          <b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on {{bookingSummary.date}}</b>
         </div>
         <div *ngIf="bookingSummary.status=='COMPLETED'">
           <p style="color: darkgreen"><b>Your completed token number is {{bookingSummary.tokenNumber}}</b></p>
-          <p><b>{{bookingSummary.fromTime}}-{{bookingSummary.toTime}} on {{bookingSummary.date}}</b></p>
         </div>
       </nb-card-body>
       <nb-card-footer *ngIf="bookingSummary.status=='BOOKED'">

@@ -5,7 +5,7 @@ import { ClientAdminHomeComponent } from './client-admin-home/client-admin-home.
 import {ClientRoutingModule} from "./client-admin-routing.module";
 import {ClientAdminDetailsComponent} from "./client-admin-details/client-admin-details.component";
 import {
-    NbAccordionModule,
+    NbAccordionModule, NbBadgeModule,
     NbButtonModule,
     NbCardModule,
     NbDatepickerModule, NbIconModule,
@@ -29,7 +29,8 @@ import { ActiveSessionComponent } from './active-session/active-session.componen
         FormsModule,
         NbSpinnerModule,
         NbInputModule,
-        NbIconModule
+        NbIconModule,
+        NbBadgeModule
     ],
   providers:[AdminService]
 })

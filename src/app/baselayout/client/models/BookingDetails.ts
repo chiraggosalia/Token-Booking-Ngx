@@ -5,4 +5,5 @@ export class BookingDetails {
   tokenNumber:string;
   status:string
   sequenceNumber:string;
+  recommendedTime:string;
 }

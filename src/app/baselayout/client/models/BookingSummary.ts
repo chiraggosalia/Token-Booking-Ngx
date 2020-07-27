@@ -8,4 +8,5 @@ export class BookingSummary {
   toTime:string;
   tokenNumber:string;
   status:string;
+  recommendedTime:string;
 }

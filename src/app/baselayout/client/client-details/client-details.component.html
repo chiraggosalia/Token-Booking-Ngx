@@ -5,14 +5,14 @@
       <nb-card-body>
         <h6>{{filterValue.selectedDay}}'s sessions</h6>
         <nb-accordion>
-          <nb-accordion-item *ngFor="let session of clientSessionDetails?.sessions | dateFilter:filterValue">
+          <nb-accordion-item [disabled]="session.availableToken == 0 && session?.tokenNumber<1" *ngFor="let session of clientSessionDetails?.sessions | dateFilter:filterValue">
             <nb-accordion-item-header>
               {{session.fromTime + " " + session.toTime }}
+              <span class="badge badge-pill ml-5" [ngClass]="session?.availableToken>0?'badge-success':'badge-danger'" >{{session?.availableToken}}</span>
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-              <p *ngIf="session.tokenNumber<1 && session.availableToken>0">Available tokens {{session.availableToken}}</p>
-              <p *ngIf="session.tokenNumber<1 && session.availableToken>0">Total tokens {{session.noOfTokens}}</p>
-              <p *ngIf="session.tokenNumber>0">
+              <p *ngIf="session?.tokenNumber<1 && session.availableToken>0">Available tokens {{session.availableToken}}</p>
+              <p *ngIf="session?.tokenNumber>0">
                 <b style="color: green">Your Booked token number is {{session.tokenNumber}}</b>
                 <br/>
                 <b style="color: red">Please submit your token once you reach the clinic</b>

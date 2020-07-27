@@ -4,3 +4,20 @@
 .display-layout {
   max-width: 400px;
 }
+.circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: 35px;
+  color: #fff;
+  line-height: 80px;
+  text-align: center;
+  background: repeating-linear-gradient(45deg, black, transparent 100px);
+  display: inline-block;
+}
+.circle-submitted {
+  background: repeating-linear-gradient(45deg, forestgreen, transparent 100px);
+}
+.visiting-time {
+  margin-top: 15px;
+}

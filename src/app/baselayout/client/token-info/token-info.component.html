@@ -1,5 +1,5 @@
 <nb-flip-card [showToggleButton]="false" [flipped]="flipped" class="display-layout">
-  <nb-card-front>
+  <nb-card-front >
     <nb-card status="success">
       <nb-card-header>
         <div>
@@ -11,24 +11,21 @@
         <p id="startLat" [hidden]="true"></p>
         <p id="startLon" [hidden]="true"></p>
         <p id="locationError" [hidden]="true"></p>
-        <div *ngIf="bookingSummary.status=='SUBMITTED'">
-          <p style="color: green"><b>Your submitted token no. is {{bookingSummary.tokenNumber}}</b></p>
+        <div *ngIf="bookingSummary.status=='SUBMITTED'" class="text-center">
+          <div class="circle circle-submitted">{{bookingSummary?.tokenNumber}}</div>
         </div>
-        <div *ngIf="bookingSummary.status=='BOOKED'">
-          <p style="color: green">
-            <b>Your booked token no. is {{bookingSummary.tokenNumber}}</b></p>
-          <p style="color: green">
-            <b>Your recommended time to visit : {{bookingSummary.recommendedTime}}</b>
-          </p>
+        <div *ngIf="bookingSummary.status=='BOOKED'" class="text-center">
+          <div class="circle">{{bookingSummary?.tokenNumber}}</div>
+          <div class="visiting-time">Visiting time: {{bookingSummary?.recommendedTime}}</div>
         </div>
-        <div *ngIf="bookingSummary.status=='CANCELLED'">
-          <p style="color: red"><b>Your cancelled token number is {{bookingSummary.tokenNumber}}</b></p>
+        <div *ngIf="bookingSummary.status=='CANCELLED'" class="text-center">
+          <div class="circle">{{bookingSummary?.tokenNumber}}</div>
         </div>
-        <div *ngIf="bookingSummary.status=='COMPLETED'">
-          <p style="color: darkgreen"><b>Your completed token number is {{bookingSummary.tokenNumber}}</b></p>
+        <div *ngIf="bookingSummary.status=='COMPLETED'" class="text-center">
+          <div class="circle">{{bookingSummary?.tokenNumber}}</div>
         </div>
       </nb-card-body>
-      <nb-card-footer *ngIf="bookingSummary.status=='BOOKED'">
+      <nb-card-footer *ngIf="bookingSummary.status=='BOOKED'" class="text-center">
         <button nbButton status="primary" size="small" (click)="submitToken()">
           Submit
         </button>
@@ -42,8 +39,8 @@
     <nb-card size="tiny" status="info">
       <nb-card-header>Confirmation</nb-card-header>
       <nb-card-body>
-        <p *ngIf="actionSelected == 'SUBMIT'">Do you want to submit a token ?</p>
-        <p *ngIf="actionSelected == 'CANCEL'">Do you want to cancel a token ?</p>
+        <p *ngIf="actionSelected == 'SUBMIT'">Do you want to submit the token ?</p>
+        <p *ngIf="actionSelected == 'CANCEL'">Do you want to cancel the token ?</p>
       </nb-card-body>
       <nb-card-footer>
         <button nbButton status="primary" size="medium" (click)="OK()"

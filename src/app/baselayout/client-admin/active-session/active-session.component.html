@@ -7,14 +7,15 @@
   </nb-card-header>
   <nb-card-body>
     <div class="text-center">
-      <div class="circle">{{tokenInfo?.tokenNumber}}</div>
+      <div class="circle"
+           [ngClass]="tokenInfo?.tokenNumber%2==0?'circle-even-number':'circle-odd-number'">{{tokenInfo?.tokenNumber}}</div>
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="text-center">
       <button nbButton [status]="success" (click)="nextToken()"
               [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="medium" >Next Token
-        <span class="badge ml-1 badge-primary"  >5</span>
+        <!--<span class="badge ml-1 badge-primary"  >5</span>-->
       </button>
     </div>
   </nb-card-footer>

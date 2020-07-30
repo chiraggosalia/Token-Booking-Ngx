@@ -5,6 +5,7 @@ import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import {AuthuserService} from "../../../auth/authuser.service";
 import {Router} from "@angular/router";
+import {PageReload} from "../../../baselayout/PageReload";
 
 @Component({
   selector: 'ngx-header',
@@ -44,7 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private breakpointService: NbMediaBreakpointsService,
               @Inject(NB_WINDOW) private window,
               private authuserService:AuthuserService,
-              private router: Router) {
+              private router: Router,
+              private pageReloadService:PageReload) {
   }
 
   ngOnInit() {
@@ -98,7 +100,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   navigateHome() {
-    this.menuService.navigateHome();
+    let currentUser: any = localStorage.getItem("currentUser");
+    if (currentUser) {
+      let currentUserJson: any = JSON.parse(currentUser);
+      if(currentUserJson.role == 'ADMIN') {
+        this.pageReloadService.redirectTo('/base/admin');
+      } else if (currentUserJson.role == 'USER') {
+        this.pageReloadService.redirectTo('/base/client');
+      }
+    }
     return false;
   }
 

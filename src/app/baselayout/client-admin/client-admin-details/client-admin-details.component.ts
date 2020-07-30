@@ -11,6 +11,7 @@ import {Sessionfilter} from "../models/sessionfilter";
 import {AdminService} from "../services/admin.service";
 import {Router} from "@angular/router";
 import {AdminSummary} from "../models/AdminSummary";
+import {PageReload} from "../../PageReload";
 
 @Component({
   selector: 'ngx-client-admin-details',
@@ -35,7 +36,7 @@ export class ClientAdminDetailsComponent implements OnInit {
   selectedSessionID:string;
   selectedAction:string;
 
-  constructor(private adminService:AdminService,protected dateService: NbDateService<Date>, private dialogService: NbDialogService,private router: Router, private toastrService: NbToastrService) {
+  constructor(private adminService:AdminService,protected dateService: NbDateService<Date>, private dialogService: NbDialogService,private router: Router, private toastrService: NbToastrService,private pageReloadService:PageReload) {
     this.minDate = this.dateService.addDay(this.dateService.today(), 0);
     this.maxDate = this.dateService.addDay(this.dateService.today(), 6);
   }

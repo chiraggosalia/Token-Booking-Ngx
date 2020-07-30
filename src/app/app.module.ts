@@ -16,6 +16,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {NbAuthModule} from "@nebular/auth";
 import {AuthInterceptor} from "./auth-interceptor";
 import {AuthuserService} from "./auth/authuser.service";
+import {PageReload} from "./baselayout/PageReload";
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,8 +38,9 @@ import {AuthuserService} from "./auth/authuser.service";
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
-    multi: true
-  },AuthuserService],
+    multi: true,
+  },AuthuserService,
+    PageReload],
 })
 export class AppModule {
 }

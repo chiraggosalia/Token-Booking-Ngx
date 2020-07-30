@@ -3,7 +3,7 @@
     <nb-card status="success" >
       <nb-card-header>{{clientName}}</nb-card-header>
       <nb-card-body>
-        <h3>{{filterValue.selectedDay}}'s sessions</h3>
+        <h6>{{filterValue.selectedDay}}'s sessions</h6>
         <nb-accordion>
           <nb-accordion-item *ngFor="let session of adminSummary?.adminSessionSummaryList | adminDateFilter:filterValue">
             <nb-accordion-item-header>

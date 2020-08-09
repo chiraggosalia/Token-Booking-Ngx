@@ -28,6 +28,12 @@ export class AuthuserService {
     return this._http.post<ResponseStatus<string>>(this.baseURL + '/register', body,{headers: this.headers});
   }
 
+  saveUserDetails(body) : Observable<ResponseStatus<string>> {
+    this.headers.append('Content-Type', 'application/json; charset=utf-8');
+    this.headers.append('X-Requested-With', 'XMLHttpRequest');
+    return this._http.post<ResponseStatus<string>>(this.baseURL + '/saveUserDetails', body,{headers: this.headers});
+  }
+
   logout() : Observable<ResponseStatus<string>> {
     this.headers.append('Content-Type', 'application/json; charset=utf-8');
     this.headers.append('X-Requested-With', 'XMLHttpRequest');

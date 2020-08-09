@@ -1,4 +1,4 @@
 1. Datepicker disable keyboard input
-2. Reload if same active route
+2. Reload if same active route -- Done
 3. Default theme -- Done
 

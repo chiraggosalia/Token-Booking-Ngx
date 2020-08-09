@@ -5,31 +5,34 @@ import { RouterModule } from '@angular/router';
 
 import { NgxAuthRoutingModule } from './auth-routing.module';
 import {
-    NbAccordionModule,
-    NbAlertModule,
-    NbButtonModule,
-    NbCheckboxModule,
-    NbInputModule, NbSpinnerModule,
+  NbAccordionModule,
+  NbAlertModule,
+  NbButtonModule, NbCardModule,
+  NbCheckboxModule,
+  NbInputModule, NbSpinnerModule,
 } from '@nebular/theme';
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
+import {OtpDialogPromptComponent} from "./dialog/otp-dialog-prompt.component";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        NbAlertModule,
-        NbInputModule,
-        NbButtonModule,
-        NbCheckboxModule,
-        NgxAuthRoutingModule,
-        NbAccordionModule,
-        NbSpinnerModule,
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    NbAlertModule,
+    NbInputModule,
+    NbButtonModule,
+    NbCheckboxModule,
+    NgxAuthRoutingModule,
+    NbAccordionModule,
+    NbSpinnerModule,
+    NbCardModule,
+  ],
   declarations: [
   NgxLoginComponent,
-  UserRegisterComponent],
+  UserRegisterComponent,
+  OtpDialogPromptComponent],
 })
 export class NgxAuthModule {
 }

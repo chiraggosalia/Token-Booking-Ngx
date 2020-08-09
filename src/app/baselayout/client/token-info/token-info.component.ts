@@ -4,6 +4,8 @@ import {ManageBookingService} from "../services/manage-booking.service";
 import {NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService} from "@nebular/theme";
 import {getDistanceFromLatLonInKm} from "../services/geo-location.service";
 import {GeoLocationErrorCodeEnum} from "../models/GeoLocationErrorCodeEnum";
+import {Router} from "@angular/router";
+import {PageReload} from "../../PageReload";
 
 @Component({
   selector: 'ngx-token-info',
@@ -21,7 +23,7 @@ export class TokenInfoComponent implements OnInit {
   actionSelected: string;
   loading:boolean = false;
 
-  constructor(private manageBookingService:ManageBookingService, private toastrService: NbToastrService) {
+  constructor(private manageBookingService:ManageBookingService, private toastrService: NbToastrService, private router: Router, private pageReload:PageReload) {
   }
 
   ngOnInit(): void {
@@ -33,7 +35,8 @@ export class TokenInfoComponent implements OnInit {
 
   submitToken() {
     this.actionSelected = "SUBMIT";
-    // TODO need secure connection to get user locaotion this.getLocation();
+    // TODO need secure connection to get user location
+    // this.getLocation();
     this.toggleView();
   }
 
@@ -52,7 +55,7 @@ export class TokenInfoComponent implements OnInit {
       this.manageBookingService.submitBooking(this.bookingSummary.bookingId).subscribe(response => {
         this.loading = false;
         if (response.status === 'SUCCESS') {
-          this.actionResponse.emit(response.message);
+          this.pageReload.redirectTo(this.router.url);
           this.showToast('Info','success', 'Token submitted successfully');
         } else {
           this.showToast('Info','primary', response.errorMessage);

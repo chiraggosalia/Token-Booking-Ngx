@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logoutTitle:string = 'Log out';
   managebookingTitle:string = 'Manage Booking';
 
-  themes = [
+ /* themes = [
     {
       value: 'dark',
       name: 'Dark',
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ];
 
-  currentTheme: string = 'dark';
+  currentTheme: string = 'dark';*/
 
   userMenu = [ { title: this.managebookingTitle }, { title: this.logoutTitle } ];
   clientMenu = [ { title: this.managebookingTitle }, { title: this.logoutTitle } ];
@@ -70,12 +70,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
 
-    this.themeService.onThemeChange()
+    /*this.themeService.onThemeChange()
       .pipe(
         map(({ name }) => name),
         takeUntil(this.destroy$),
       )
-      .subscribe(themeName => this.currentTheme = themeName);
+      .subscribe(themeName => this.currentTheme = themeName);*/
 
     this.menuService.onItemClick()
       .pipe(

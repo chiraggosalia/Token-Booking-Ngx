@@ -10,10 +10,8 @@ import {
   NbContextMenuModule,
   NbButtonModule,
   NbSelectModule,
-  NbIconModule,
   NbThemeModule,
 } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import {
   FooterComponent,
@@ -32,9 +30,6 @@ import {
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
 } from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 
 const NB_MODULES = [
@@ -47,8 +42,6 @@ const NB_MODULES = [
   NbContextMenuModule,
   NbButtonModule,
   NbSelectModule,
-  NbIconModule,
-  NbEvaIconsModule,
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -80,7 +73,7 @@ export class ThemeModule {
           {
             name: 'dark',
           },
-          [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME ],
+          [ DARK_THEME ],
         ).providers,
       ],
     };

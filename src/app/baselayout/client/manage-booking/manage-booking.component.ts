@@ -25,7 +25,6 @@ export class ManageBookingComponent implements OnInit {
     this.bookingSummaryList = [];
     this.manageBookingService.getBookingsByUserId().subscribe(response => {
       if (response.status === 'SUCCESS') {
-        console.log(response.message);
         this.bookingSummaryList.push(...response.message);
         this.submittedTokenFilter = {status: 'SUBMITTED'};
         this.bookedTokenFilter = {status: 'BOOKED'};

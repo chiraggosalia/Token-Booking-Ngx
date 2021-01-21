@@ -23,7 +23,8 @@ export class UserRegisterComponent implements OnInit {
   currentUserName: string = null;
   countryCode:string = "+91";
 
-  constructor(private authService:AuthuserService,private router: Router,private dialogService:NbDialogService,private toastrService: NbToastrService) { }
+  constructor(private authService: AuthuserService, private router: Router, private dialogService: NbDialogService, private toastrService: NbToastrService) {
+  }
 
   ngOnInit(): void {
   }

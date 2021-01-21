@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let currentUser: any = localStorage.getItem("currentUser");
     if (currentUser) {
       let currentUserJson: any = JSON.parse(currentUser);
-      this.user = {'name': currentUserJson.userName,'role': currentUserJson.role};
+      this.user = {'name': currentUserJson.userName, 'role': currentUserJson.role};
       if(this.user.role == 'ADMIN') {
         this.userMenu = this.adminMenu;
         this.menuService.navigateHome('menuTag');

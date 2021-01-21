@@ -23,7 +23,7 @@ export class TokenInfoComponent implements OnInit {
   actionSelected: string;
   loading:boolean = false;
 
-  constructor(private manageBookingService:ManageBookingService, private toastrService: NbToastrService, private router: Router, private pageReload:PageReload) {
+  constructor(private manageBookingService: ManageBookingService, private toastrService: NbToastrService, private router: Router, private pageReload: PageReload) {
   }
 
   ngOnInit(): void {
@@ -35,8 +35,7 @@ export class TokenInfoComponent implements OnInit {
 
   submitToken() {
     this.actionSelected = "SUBMIT";
-    // TODO need secure connection to get user location
-    // this.getLocation();
+    this.getLocation();
     this.toggleView();
   }
 
@@ -47,10 +46,10 @@ export class TokenInfoComponent implements OnInit {
 
   OK() {
     if (this.actionSelected == 'SUBMIT') {
-     /* if (!this.validateCurrentLocation()) {
+      if (!this.validateCurrentLocation()) {
         this.toggleView();
         return;
-      }*/
+      }
       this.loading = true;
       this.manageBookingService.submitBooking(this.bookingSummary.bookingId).subscribe(response => {
         this.loading = false;
@@ -99,7 +98,7 @@ export class TokenInfoComponent implements OnInit {
   }
 
   getLocation() {
-    document.getElementById('locationError').innerText=undefined;
+    document.getElementById('locationError').innerText = undefined;
     var geoError = function (error) {
       switch (error.code) {
         case error.TIMEOUT:
@@ -125,11 +124,12 @@ export class TokenInfoComponent implements OnInit {
 
   validateCurrentLocation(): boolean {
     try {
-      let error = document.getElementById('locationError').innerHTML;
-      if (error in [GeoLocationErrorCodeEnum.BROWSER_NOT_SUPPORTED, GeoLocationErrorCodeEnum.PERMISSION_DENIED, GeoLocationErrorCodeEnum.TIMEOUT]) {
-        this.showToast('Error', 'danger', 'Can not identify current location - ' + error);
+      const error = document.getElementById('locationError').innerHTML;
+
+      if (this.hasErrorInReturnCode(error)) {
         return false;
       }
+
       let currentLat = document.getElementById('startLat').innerText;
       let currentLon = document.getElementById('startLon').innerText;
       // 19.025077, 72.853223
@@ -154,6 +154,18 @@ export class TokenInfoComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  hasErrorInReturnCode(error) {
+    console.log('Location error code >> ' + error);
+    if (error === GeoLocationErrorCodeEnum.BROWSER_NOT_SUPPORTED) {
+      this.showToast('Error', 'danger', 'Browser is not compatible ');
+      return true;
+    } else if (error === GeoLocationErrorCodeEnum.PERMISSION_DENIED || error === GeoLocationErrorCodeEnum.TIMEOUT) {
+      this.showToast('Error', 'danger', 'We need your current location to verify that your action');
+      return true;
+    }
+    return false;
   }
 
 }

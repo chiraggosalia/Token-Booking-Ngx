@@ -4,7 +4,9 @@
       <nb-card-header>
         <div>
           {{bookingSummary.clientName}}<br/>
-          {{bookingSummary.date}} ({{bookingSummary.fromTime}}-{{bookingSummary.toTime}})
+          {{bookingSummary.date}} ({{bookingSummary.fromTime}}-{{bookingSummary.toTime}}) <br/>
+          <span *ngIf="bookingSummary.status=='EXPIRED'" class="tokenStatus"><b>Not Visited</b></span>
+          <span *ngIf="bookingSummary.status=='CANCELLED_BY_ADMIN'" class="tokenStatus"><b>Cancelled by {{bookingSummary.clientName}}</b></span>
           </div>
       </nb-card-header>
       <nb-card-body>
@@ -18,7 +20,9 @@
           <div class="circle">{{bookingSummary?.tokenNumber}}</div>
           <div class="visiting-time">Visiting time: {{bookingSummary?.recommendedTime}}</div>
         </div>
-        <div *ngIf="bookingSummary.status=='CANCELLED'" class="text-center">
+        <div
+          *ngIf="bookingSummary.status=='CANCELLED' || bookingSummary.status=='CANCELLED_BY_ADMIN' || bookingSummary.status=='EXPIRED'"
+          class="text-center">
           <div class="circle">{{bookingSummary?.tokenNumber}}</div>
         </div>
         <div *ngIf="bookingSummary.status=='COMPLETED'" class="text-center">

@@ -26,15 +26,15 @@ export class ManageBookingComponent implements OnInit {
     this.manageBookingService.getBookingsByUserId().subscribe(response => {
       if (response.status === 'SUCCESS') {
         this.bookingSummaryList.push(...response.message);
-        this.submittedTokenFilter = {status: 'SUBMITTED'};
-        this.bookedTokenFilter = {status: 'BOOKED'};
-        this.cancelledTokenFilter = {status: 'CANCELLED'};
-        this.completedTokenFilter = {status: 'COMPLETED'};
+        this.submittedTokenFilter = {status: ['SUBMITTED']};
+        this.bookedTokenFilter = {status: ['BOOKED']};
+        this.cancelledTokenFilter = {status: ['CANCELLED', 'CANCELLED_BY_ADMIN', 'EXPIRED']};
+        this.completedTokenFilter = {status: ['COMPLETED']};
         this.dataAvailable = true;
         this.bookingSummaryList.forEach(b => {
           if (b.status == 'SUBMITTED') {
             this.hasSubmittedToken = true;
-            return
+            return;
           }
         });
       } else {

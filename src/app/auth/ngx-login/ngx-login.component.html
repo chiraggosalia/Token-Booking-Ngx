@@ -54,6 +54,7 @@
            [minlength]="6"
            [maxlength]="50"
            [attr.aria-invalid]="password.invalid && password.touched ? true : null">
+    <a class="text-link" routerLink="../forgotpassword">Forgot password?</a>
     <ng-container *ngIf="password.invalid && password.touched ">
       <p class="caption status-danger" *ngIf="password.errors?.required">
         Password is required!

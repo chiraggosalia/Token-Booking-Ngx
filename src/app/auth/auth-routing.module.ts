@@ -5,6 +5,7 @@ import {
 } from '@nebular/auth';
 import {NgxLoginComponent} from './ngx-login/ngx-login.component';
 import {UserRegisterComponent} from "./user-register/user-register.component";
+import {ForgotpasswordComponent} from "./forgotpassword/forgotpassword.component";
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
       {
         path: 'register',
         component: UserRegisterComponent,
+      },
+      {
+        path: 'forgotpassword',
+        component: ForgotpasswordComponent,
       },
     ],
   },

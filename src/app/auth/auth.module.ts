@@ -14,6 +14,7 @@ import {
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import {OtpDialogPromptComponent} from "./dialog/otp-dialog-prompt.component";
+import {ForgotpasswordComponent} from "./forgotpassword/forgotpassword.component";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {OtpDialogPromptComponent} from "./dialog/otp-dialog-prompt.component";
   declarations: [
   NgxLoginComponent,
   UserRegisterComponent,
-  OtpDialogPromptComponent],
+  OtpDialogPromptComponent,
+  ForgotpasswordComponent],
 })
 export class NgxAuthModule {
 }

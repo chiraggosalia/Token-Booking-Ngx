@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import {AuthuserService} from "../../../auth/authuser.service";
 import {Router} from "@angular/router";
 import {PageReload} from "../../../baselayout/PageReload";
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'ngx-header',
@@ -117,7 +118,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.authuserService.logout().subscribe(response => {
         if (response.status == "SUCCESS") {
           localStorage.removeItem("currentUser");
-          this.router.navigate(['/auth/login']);
+          Auth.signOut().then( () =>  this.router.navigate(['/auth/login']));
         }
 
       });

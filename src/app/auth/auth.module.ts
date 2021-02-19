@@ -13,8 +13,8 @@ import {
 } from '@nebular/theme';
 import { NgxLoginComponent } from './ngx-login/ngx-login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
-import {OtpDialogPromptComponent} from "./dialog/otp-dialog-prompt.component";
-import {ForgotpasswordComponent} from "./forgotpassword/forgotpassword.component";
+import {OtpDialogPromptComponent} from './dialog/otp-dialog-prompt.component';
+import {ForgotpasswordComponent} from './forgotpassword/forgotpassword.component';
 
 @NgModule({
   imports: [

@@ -31,7 +31,7 @@ export class ForgotpasswordComponent implements OnInit {
         console.log('ERROR: ' + err);
           this.showMessages.error = true;
           this.showMessages.success = false;
-          this.errors.push('Error occured while updating password, please try after some time');
+          this.errors.push('Error occured while updating password, please try after some time' + err.message);
         });
   }
 
@@ -47,7 +47,7 @@ export class ForgotpasswordComponent implements OnInit {
         console.log('ERROR: ' + err);
         this.showMessages.error = true;
         this.showMessages.success = false;
-        this.errors.push('Error occured while updating password, please try after some time');
+        this.errors.push('Error occured while updating password, please try after some time' + err.message);
       });
   }
 }

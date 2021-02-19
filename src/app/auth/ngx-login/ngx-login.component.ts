@@ -43,10 +43,10 @@ export class NgxLoginComponent implements OnInit {
 
       }).catch(err => {
         if (err.code == "UserNotConfirmedException") {
-            this.showToast('Error','warning', err.code);
+            this.showToast('Error','warning', err.message);
         }
         else {
-          this.showToast('Error','danger', err.code);
+          this.showToast('Error','danger', err.message);
         }
         this.loading = false;
       })

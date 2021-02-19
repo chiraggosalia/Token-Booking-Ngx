@@ -6,10 +6,9 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import {Observable, from} from 'rxjs';
-import {switchMap ,catchError , tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import { Auth } from 'aws-amplify';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -18,42 +17,26 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    return from(Auth.currentSession())
-      .pipe(
-        switchMap((auth: any) => { // switchMap() is used instead of map().
-
-          const jwt = auth.accessToken.jwtToken;
-          let with_auth_request = request.clone({
-            setHeaders: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${jwt}`
-            }
-          });
-          return next.handle(with_auth_request).pipe(tap(() => {
-            },
-            (err: any) => {
-              if (err instanceof HttpErrorResponse) {
-                if (err.status !== 403 && err.status !== 401) {
-                  return;
-                }
-                this.router.navigate(['/auth/login']);
-              }
-            }));
-        }),
-        catchError((err) => {
-          return next.handle(request).pipe(tap(() => {
-            },
-            (err: any) => {
-              if (err instanceof HttpErrorResponse) {
-                if (err.status !== 403 && err.status !== 401) {
-                  return;
-                }
-                this.router.navigate(['/auth/login']);
-              }
-            }));
-        })
-      );
-
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.jwt) {
+      request = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${currentUser.jwt}`
+        }
+      });
+    } /*else {
+      this.router.navigate(['/auth/login']);
+    }*/
+    return next.handle(request).pipe(tap(() => {
+      },
+      (err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status !== 403 && err.status !== 401) {
+            return;
+          }
+          this.router.navigate(['/auth/login']);
+        }
+      }));
   }
 }

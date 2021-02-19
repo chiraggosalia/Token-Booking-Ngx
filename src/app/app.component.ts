@@ -12,9 +12,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   /* Auth.configure({
+      userPoolId: 'ap-south-1_xmdy222gH',
+      userPoolWebClientId: 'k0di7cjq19702m71fbfeg04j2',
+    });*/
+
     Auth.configure({
-      userPoolId: 'us-east-1_TNiPSjD1C',
-      userPoolWebClientId: '6bmdj53cntun1pf8hg8b03gvhh',
+      userPoolId: 'us-east-1_ZUmlSYSUU',
+      userPoolWebClientId: '59h2prt9hdplutdlduhj9f58of',
     });
   }
 }

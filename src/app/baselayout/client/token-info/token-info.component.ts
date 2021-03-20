@@ -134,10 +134,10 @@ export class TokenInfoComponent implements OnInit {
       let currentLon = document.getElementById('startLon').innerText;
       // 19.025077, 72.853223
       let distance = getDistanceFromLatLonInKm(19.025077, 72.853223, currentLat, currentLon);
-      let distanceInMeter = distance*1000;
+      let distanceInMeter = distance * 1000;
       distance = Math.round(distance * 100) / 100;
       distanceInMeter = Math.round(distanceInMeter * 100) / 100;
-      if (distanceInMeter < 100) {
+      if (distanceInMeter < 50) {
         return true;
       } else {
         if (distance > 1) {
@@ -158,11 +158,11 @@ export class TokenInfoComponent implements OnInit {
 
   hasErrorInReturnCode(error) {
     console.log('Location error code >> ' + error);
-    if (error === GeoLocationErrorCodeEnum.BROWSER_NOT_SUPPORTED) {
+    if (error == GeoLocationErrorCodeEnum.BROWSER_NOT_SUPPORTED) {
       this.showToast('Error', 'danger', 'Browser is not compatible ');
       return true;
-    } else if (error === GeoLocationErrorCodeEnum.PERMISSION_DENIED || error === GeoLocationErrorCodeEnum.TIMEOUT) {
-      this.showToast('Error', 'danger', 'We need your current location to verify that your action');
+    } else if (error == GeoLocationErrorCodeEnum.PERMISSION_DENIED || error == GeoLocationErrorCodeEnum.TIMEOUT) {
+      this.showToast('Error', 'danger', 'We need your current location to verify that you have reached the clinic.\n Please allow location permission to proceed');
       return true;
     }
     return false;

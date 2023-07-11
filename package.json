@@ -50,7 +50,7 @@
     "typeface-exo": "0.0.22",
     "web-animations-js": "2.3.2",
     "zone.js": "~0.10.2",
-    "aws-amplify": "3.0.9"
+    "aws-amplify": "5.3.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.4",
